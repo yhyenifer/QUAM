@@ -8,13 +8,13 @@
   <!--  <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
         <tr>
             
-            <th>Actividad</th>
-            <th>Responsable</th>
-            <th>Fecha de Cumplimiento</th>
-            <th>Recursos administrativos y financieros</th>
-            <th>Fundamentos y soportes de la efectividad de las acciones (evidencias)</th>
-            <th>Actividades para subsanar y prevenir que se presenten en el futuro hechos o situaciones que afecten el bienestar y salud de los trabajadores o personas que prestan servicios en las empresas</th>
-            <th class="text-center">Acciones</th>
+            <th class="arriba">Actividad</th>
+            <th class="arriba">Responsable</th>
+            <th class="arriba">Fecha de Cumplimiento</th>
+            <th class="arriba">Recursos administrativos y financieros</th>
+            <th class="arriba">Fundamentos y soportes de la efectividad de las acciones (evidencias)</th>
+            <th class="arriba">Actividades para subsanar y prevenir que se presenten en el futuro hechos o situaciones que afecten el bienestar y salud de los trabajadores o personas que prestan servicios en las empresas</th>
+            <th class="text-center class="arriba"">Acciones</th>
         </tr>
     </thead>
    <% planes.forEach(function(plan) { %>
@@ -22,12 +22,16 @@
             <tr>
                
                 <td><%=plan.actividad%> </td>
-                <td><%=plan.responsable%></td>
+                 <% if(plan.responsable == 1){ %>
+                <td>Gerente</td>
+                   <% }else{  %>
+                    <td>Líder SST</td>
+                  <% }  %>   
                 <td><%=plan.plazo%></td>
                 <td><%=plan.recursos%></td>
                 <td><%=plan.fundamentos%></td>
                 <td><%=plan.act_subsanar%></td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon fa-edit fa"></span> Editar</a> </td>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon fa-edit fa"></span> Editar</a> <a class='btn btn-info btn-xs' data-tooltip='<%=plan.observaciones%>' href="#"><span class="glyphicon fa-font fa"></span> Observaciónes</a> </td>
             </tr>
            <% }); %>  
     </table>

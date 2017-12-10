@@ -178,6 +178,7 @@ module.exports ={
                         if(observaciones==null){
                             observaciones="";
                         }
+                       
                         fechaAct.setMonth(fechaAct.getMonth()+mes);
                         var fecha= dateFormat(fechaAct, 'yyyy-mm-dd h:MM:ss');
                         var plan = {

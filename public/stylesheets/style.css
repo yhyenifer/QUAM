@@ -131,6 +131,10 @@ h4 {
     color: black;
     background-color: #12748563;
 }
+.arriba{
+    
+        vertical-align: top;
+}
 
 #empresa_nom{
     border: none;
