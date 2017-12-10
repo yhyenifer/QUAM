@@ -1,0 +1,36 @@
+<% include  .././template/nav.ejs%>
+ <h4 class="centro"><b>Plan de Mejoramiento </b> </h4><br>
+
+<div class="container">
+    <div class="row ">
+    <table class="table table-striped custab">
+    <thead>
+  <!--  <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
+        <tr>
+            
+            <th>Actividad</th>
+            <th>Responsable</th>
+            <th>Fecha de Cumplimiento</th>
+            <th>Recursos administrativos y financieros</th>
+            <th>Fundamentos y soportes de la efectividad de las acciones (evidencias)</th>
+            <th>Actividades para subsanar y prevenir que se presenten en el futuro hechos o situaciones que afecten el bienestar y salud de los trabajadores o personas que prestan servicios en las empresas</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+   <% planes.forEach(function(plan) { %>
+  
+            <tr>
+               
+                <td><%=plan.actividad%> </td>
+                <td><%=plan.responsable%></td>
+                <td><%=plan.plazo%></td>
+                <td><%=plan.recursos%></td>
+                <td><%=plan.fundamentos%></td>
+                <td><%=plan.act_subsanar%></td>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon fa-edit fa"></span> Editar</a> </td>
+            </tr>
+           <% }); %>  
+    </table>
+    </div>
+</div>
+ <script src="../javascripts/evaluacionInicial.js"></script>

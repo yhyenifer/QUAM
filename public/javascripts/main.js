@@ -32,7 +32,7 @@ $(document).ready(function()
          
                 if (emp_id != ''){
                    
-                    $('#evalini').attr('href','http://localhost:3000/evaluacionInicial/'+emp_id);
+                    $('#evalini').attr('href','https://sgquam.herokuapp.com/evaluacionInicial/'+emp_id);
                     }else{
                         alert("Debe seleccionar una empresa");
                     }
@@ -42,7 +42,7 @@ $(document).ready(function()
                 
                        if (emp_id != ''){
                           
-                           $('#verEval').attr('href','http://localhost:3000/evaluacionesIniciales/'+emp_id);
+                           $('#verEval').attr('href','https://sgquam.herokuapp.com/evaluacionesIniciales/'+emp_id);
                            }else{
                                alert("Debe seleccionar una empresa");
                            }
@@ -53,7 +53,7 @@ $(document).ready(function()
                 
                     if (emp_id != ''){
                           
-                          $('#navEval').attr('href','http://localhost:3000/evaluacionInicial/'+emp_id);
+                          $('#navEval').attr('href','https://sgquam.herokuapp.com/evaluacionInicial/'+emp_id);
                           }else{
                                alert("Debe seleccionar una empresa");
                            }

@@ -16,7 +16,7 @@
    <% evaluaciones.forEach(function(evaluacion) { %>
   
             <tr>
-                <td>Evaluacion Inicial</td>
+                <td>Evaluacion Inicial<span id="codEval" class="hidden"><%=evaluacion.codigo%></span></td>
                 <td><%=evaluacion.puntaje%> %</td>
                 <td><%=evaluacion.fechaCreacion%></td>
                 <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon fa-edit fa"></span> Editar</a> <a href="#" id="verPlan" class="btn btn-success btn-xs"><span class="glyphicon fa-check-square-o fa"></span> Ver Plan</a> <a href="#" class="btn btn-warning btn-xs"><span class="glyphicon fa-bar-chart fa"></span> Ver Estadisticas</a></td>

@@ -201,6 +201,36 @@ module.exports ={
         
         });
             
+    },
+
+    verPlan: function(req, res, next){
+        var codEvalEmp = req.params.codEvalEmp;
+        var config = require('.././database/config');
+        var db = mysql.createConnection(config);
+        
+        var num= null;
+        var codigoEval= null;
+        var itemsPlan=null;
+        var planes=  null;
+        var user=req.user;
+       
+        db.connect();
+
+     
+        
+       db.query('SELECT * FROM plan_mejoramiento_empr  WHERE codEvalEmp = ? ',codEvalEmp,  function(err, rows, fields){
+            if (err) throw err;
+            
+            planes=rows;
+            db.end();
+            console.log(planes);
+            res.render('sgsst/plan',{
+                isAuthenticated : req.isAuthenticated(),
+                user : user,
+                planes: planes
+            });
+        });
+
     }
 
     
