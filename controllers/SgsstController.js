@@ -187,7 +187,8 @@ module.exports ={
                          observaciones: observaciones,
                         plazo: fecha,
                         recursos: itemsPlan[0].recursos,
-                        responsable: itemsPlan[0].responsable
+                        responsable: itemsPlan[0].responsable,
+                        act_subsanar: itemsPlan[0].act_subsanar
                       }
                       db.query('INSERT INTO plan_mejoramiento_empr SET ? ',plan,  function(err, rows, fields){                        
                         if (err) throw err;
