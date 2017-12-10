@@ -48,12 +48,12 @@ $(document).ready(function()
                            }
                    });            
 
-    $("#navEval").click(function () {
+    $("#evalinii").click(function () {
         var emp_id= $("#empresa_id").val();
                 
                     if (emp_id != ''){
                           
-                          $('#navEval').attr('href','https://sgquam.herokuapp.com/evaluacionInicial/'+emp_id);
+                          $('#evalinii').attr('href','https://sgquam.herokuapp.com/evaluacionInicial/'+emp_id);
                           }else{
                                alert("Debe seleccionar una empresa");
                            }
