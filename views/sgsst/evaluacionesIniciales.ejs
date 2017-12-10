@@ -1,0 +1,28 @@
+<% include  .././template/nav.ejs%>
+ <h4 class="centro"><b>Evaluaciónes Iniciales de la empresa :</b> <%= empresa[0].nombre %></h4><br>
+
+<div class="container">
+    <div class="row ">
+    <table class="table table-striped custab">
+    <thead>
+  <!--  <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
+        <tr>
+            <th>Evaluacion Inicial</th>
+            <th>Puntaje</th>
+            <th>Fecha de Creación</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+   <% evaluaciones.forEach(function(evaluacion) { %>
+  
+            <tr>
+                <td>Evaluacion Inicial</td>
+                <td><%=evaluacion.puntaje%> %</td>
+                <td><%=evaluacion.fechaCreacion%></td>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon fa-edit fa"></span> Editar</a> <a href="#" id="verPlan" class="btn btn-success btn-xs"><span class="glyphicon fa-check-square-o fa"></span> Ver Plan</a> <a href="#" class="btn btn-warning btn-xs"><span class="glyphicon fa-bar-chart fa"></span> Ver Estadisticas</a></td>
+            </tr>
+           <% }); %>  
+    </table>
+    </div>
+</div>
+ <script src="../javascripts/evaluacionInicial.js"></script>

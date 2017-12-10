@@ -1,0 +1,7 @@
+  <% include  default.ejs%>
+   <div class="btn-group btn-breadcrumb">
+    <% breadcrumbs.forEach(function(breadcrumb) { %>
+            <a href="<%=breadcrumb.url %>" class="btn btn-default"><i class="glyphicon "></i><%=breadcrumb.name %></a>
+        <% }); %>
+      
+        </div>

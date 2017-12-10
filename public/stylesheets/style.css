@@ -1,0 +1,256 @@
+a{
+    color: black;
+}
+a :hover{
+   
+        color: black;
+  
+}
+.centro{
+    text-align: center;
+}
+
+.fondo{
+   
+    background: url(/images/fondo.png);
+    background-size: cover;
+}
+
+.margen_sup{
+    margin-top: 10px;
+}
+
+.container {
+    padding: 25px;
+    position: relative;
+}
+
+
+
+.form-login {
+    background-color: #ededed4a;
+    margin-top: 2em;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-color:#d2d2d2;
+    border-width: 5px;
+    box-shadow:0 1px 0 #cfcfcf;
+}
+
+h4 { 
+ border:0 solid #fff; 
+ border-bottom-width:1px;
+ padding-bottom:10px;
+ text-align: center;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.wrapper {
+    text-align: center;
+}
+.blanco{
+    color: white;
+}
+
+.btn-primary{
+    background-color: #127285;
+    border-color: #127285;
+}
+/* css del nav*/
+
+.navbar-default{
+    background-color: #127285;
+}
+
+#lg{
+    margin-top: -26px;
+}
+.navbar-brand-centered {
+    position: absolute;
+    left: 45%;
+    display: block;
+    width: 160px;
+    text-align: center;
+    background-color: transparent;
+}
+.navbar-default .navbar-nav>li>a{
+    color: white;
+}
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: white;
+}
+.navbar>.container .navbar-brand-centered, 
+.navbar>.container-fluid .navbar-brand-centered {
+    margin-left: -80px;
+}
+/*inicio*/
+.glyphicon-lg
+{
+    font-size:4em
+}
+.info-block
+{
+    border-right:5px solid #E6E6E6;margin-bottom:25px
+}
+.info-block .square-box
+{
+    width:100px;min-height:110px;margin-right:22px;text-align:center!important;background-color:#676767;padding:20px 0
+}
+.info-block.block-info
+{
+    border-color:#20819e
+}
+.info-block.block-info .square-box
+{
+    background-color:#20819e;color:#FFF
+}
+#empr{
+    width: 69px;
+    padding: 3px;
+}
+.empresa{
+    color: black;
+}
+
+.empresa :hover{
+    color: black;
+    background-color: #12748563;
+}
+
+.itemAct{
+    color: black;
+}
+
+.itemAct :hover{
+    color: black;
+    background-color: #12748563;
+}
+
+#empresa_nom{
+    border: none;
+}
+
+.activee{
+    color: black;
+    background-color: #12748563;
+}
+.req{
+    width: 140px;
+}
+
+/*evaluacion inicial*/
+/***
+Bootstrap Line Tabs by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+***/
+
+/* Tabs panel */
+.tabbable-panel {
+    border:1px solid #eee;
+    padding: 10px;
+  }
+  
+  /* Default mode */
+  .tabbable-line > .nav-tabs {
+    border: none;
+    margin: 0px;
+  }
+  .tabbable-line > .nav-tabs > li {
+    margin-right: 2px;
+  }
+  .tabbable-line > .nav-tabs > li > a {
+    border: 0;
+    margin-right: 0;
+    color: #737373;
+  }
+  .tabbable-line > .nav-tabs > li > a > i {
+    color: #a6a6a6;
+  }
+  .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+    border-bottom: 4px solid #12748563;
+  }
+  .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+    border: 0;
+    background: none !important;
+    color: #333333;
+  }
+  .tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+    color: #a6a6a6;
+  }
+  .tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+    margin-top: 0px;
+  }
+  .tabbable-line > .nav-tabs > li.active {
+    border-bottom: 4px solid #127285;
+    position: relative;
+  }
+  .tabbable-line > .nav-tabs > li.active > a {
+    border: 0;
+    color: #333333;
+  }
+  .tabbable-line > .nav-tabs > li.active > a > i {
+    color: #404040;
+  }
+  .tabbable-line > .tab-content {
+    margin-top: -3px;
+    background-color: #fff;
+    border: 0;
+    border-top: 1px solid #eee;
+    padding: 15px 0;
+  }
+  .portlet .tabbable-line > .tab-content {
+    padding-bottom: 0;
+  }
+  
+  /* Below tabs mode */
+  
+  .tabbable-line.tabs-below > .nav-tabs > li {
+    border-top: 4px solid transparent;
+  }
+  .tabbable-line.tabs-below > .nav-tabs > li > a {
+    margin-top: 0;
+  }
+  .tabbable-line.tabs-below > .nav-tabs > li:hover {
+    border-bottom: 0;
+    border-top: 4px solid #12748567;
+  }
+  .tabbable-line.tabs-below > .nav-tabs > li.active {
+    margin-bottom: -2px;
+    border-bottom: 0;
+    border-top: 4px solid #127285;
+  }
+  .tabbable-line.tabs-below > .tab-content {
+    margin-top: -10px;
+    border-top: 0;
+    border-bottom: 1px solid #127285;
+    padding-bottom: 15px;
+  }
+  .tab-pane-inter{
+    border: 1px solid #eee;
+    padding: 6px;
+  }
+  #radioBtnC .notActive{
+    color: #127285;
+    background-color: #fff;
+}
+
+#radioBtnJ .notActive{
+    color: #127285;
+    background-color: #fff;
+}
+
+.pregu{
+    margin-left: 20px;
+}
+
+.noBorder{
+     border: none;
+    
+}

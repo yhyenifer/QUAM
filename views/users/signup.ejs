@@ -1,0 +1,58 @@
+
+<% include  ../template/nav.ejs%>
+<div class="container">
+			<div class="row main">
+				<div class="main-login main-center">
+				<h5>Registrese como usuario de QUAM.</h5>
+					<form class="" method="post" action="http://localhost:3000/auth/signup">
+						
+						<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Nombres:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="nombres" id="nombres"  placeholder="Nombres"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="email" class="cols-sm-2 control-label">Apellidos:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="apellidos" id="apellidos"  placeholder="Apellidos"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="username" class="cols-sm-2 control-label">Identificación</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-credit-card fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="identificacion" id="identificacion"  placeholder="Identificación"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="password" class="cols-sm-2 control-label">Contraseña</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password" class="form-control" name="password" id="password"  placeholder="Contraseña"/>
+								</div>
+							</div>
+						</div>
+
+		
+
+						<div class="form-group ">
+							<button type="submit" id="button" class="btn btn-primary btn-lg btn-block login-button">Registrarme</button>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>

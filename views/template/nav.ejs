@@ -1,0 +1,47 @@
+        <% include  default.ejs%>
+
+
+        <nav class="navbar navbar-default" role="navigation">
+    	  <div>
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-brand-centered">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <div class="navbar-brand navbar-brand-centered"><img id="lg" src="/images/lg.png"></div>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="navbar-brand-centered">
+		      <ul class="nav navbar-nav">
+		        <li><a href="http://localhost:3000/inicio">Inicio</a></li>
+		        <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">SG-SST <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a id="navEval" href="#">Evaluación Inicial</a></li>
+                    <li><a href="#">Matriz de Peligro</a></li>
+                    <li><a href="#">Plan de Mejoramiento</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+		      </ul>
+		      <ul class="nav navbar-nav navbar-right">
+					<% if(isAuthenticated) { %>
+					<li class="dropdown" ><a href="#" class="fa fa-user fa" class="dropdown-toggle" data-toggle="dropdown"> <%=user.nombres %> <span class="caret"></span></a>
+    							
+ 							<% }  %>
+		       
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Ver Perfil</a></li>
+                    <li><a href="#">Cambiar Contraseña</a></li>
+                    <li class="divider"></li>
+                    <li><a href="http://localhost:3000/auth/logout">Salir</a></li>
+                  </ul>
+                </li>		        
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>

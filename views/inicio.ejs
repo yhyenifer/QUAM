@@ -1,0 +1,97 @@
+<% include  ./template/nav.ejs%>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="col-lg-12">
+        <h5><b>1. Seleccione la empresa:</b></h5>
+            <input type="search" class="form-control" id="input-search" placeholder="Buscar" >
+            <br>
+        </div>
+        <% empresas.forEach(function(empresa) { %>
+        
+        <div class="searchable-container">
+            <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-6 clearfix">
+               <a class="empresa" >
+               <div class="info-block block-info clearfix">
+               
+                    <div class=" pull-left">
+                        <span class=" glyphicon-lg"><img id="empr"src="<%= empresa.foto %>" alt=""></span>
+                    </div>
+                    <h5 ><b>Nombre:</b> <span id="nombre"><%= empresa.nombre %></span></h5>
+                    <span><b>Nit:</b> <%= empresa.nit %></span><br>
+                    <span><b>Correo:</b> <%= empresa.email %></span>
+                    <span id="codigo" class="hidden"> <%= empresa.codigo %></span>
+                </div>
+                 </a>
+            </div>
+        </div>
+           <% }); %>
+         <div >
+           <input type="text"  id="empresa_id" class="hidden" value="">
+
+           
+     
+
+
+
+         </div>
+    </div>
+   
+
+    <div class="col-lg-6">
+      <div class="col-lg-12 ">
+       <h5><b>2. Seleccione la Actividad para : </b><input type="text" name="empresa_nom" id="empresa_nom" value="" readonly>
+</h5>
+    </div>
+   
+    <!-- contacts card -->
+    <div class="card card-default" id="card_contacts" style="    margin-top: 35px;">
+        <div id="contacts" class="panel-collapse collapse show" aria-expanded="true" style="">
+            <ul class="list-group ">
+                <li class="list-group-item eval" >
+                   
+                    <div class="row w-100">
+                        <div class="col-12 col-sm-6 col-md-3 ">
+                        <a id="evalini" class="itemAct" href="" >
+                            <img src="/images/requisitos/1.png" alt="" class="req rounded-circle mx-auto d-block img-fluid">
+                        </a>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 text-center text-sm-left"> 
+                          <a id="evalini" class="itemAct" href="" > <label class="name lead">iniuación Inicial</label></a><br>
+                          <a  id="verEval"> ver evaluaciones</a>
+                         </div>
+                    </div>
+                    
+                </li>
+                <li class="list-group-item">
+                    <div class="row w-100">
+                        <div class="col-12 col-sm-6 col-md-3 px-0">
+                            <img src="/images/requisitos/2.png" alt="" class="req img-fluid rounded-circle d-block mx-auto">
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 text-center text-sm-left">
+                            <label class="name lead">Matriz de Peligros</label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row w-100">
+                        <div class="col-12 col-sm-6 col-md-3 px-0">
+                            <img src="/images/requisitos/3.png" alt="" class="req img-fluid rounded-circle d-block mx-auto">
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 text-center text-sm-left">
+                            <label class="name lead">Plan de Mejoramiento</label>
+                         
+                        </div>
+                    </div>
+                </li>
+               
+            </ul>
+            <!--/contacts list-->
+        </div>
+    
+</div>
+    </div>
+</div>
+
+
+           

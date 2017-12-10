@@ -1,0 +1,548 @@
+<% include  .././template/nav.ejs%>
+ <h4 class="centro"><b>Evaluación Inicial de la empresa :</b> <%= empresa[0].nombre %></h4><br>
+ <input id="user_cod" class="hidden" value="<%=user.codigo %>">
+ <input id="empr_cod" class="hidden" value="<%=empresa[0].codigo %>">
+ <input id="evalCreada" class="hidden" value="false"> <!--0 no creada 1 si creada -->
+ <input id="idEmpEval" class="" value="">
+
+<div class="container">
+    <div class="row">
+		<div class="col-md-12">
+
+			<div class="tabbable-panel">
+				<div class="tabbable-line">
+					<ul class="nav nav-tabs  centro">
+						<li id="liPlanear" class="active">
+							<a href="#tab_planear" data-toggle="tab">
+						<b>	1.Planear </b></a>
+						</li>
+						<li id="liGesCam">
+							<a href="#tab_gestion" data-toggle="tab">
+						<b>	2.Gestión del Cambio </b> </a>
+						</li>
+						<li id="liVeri">
+							<a href="#tab_verificar" data-toggle="tab">
+						<b>	3.Verificar </b> </a>
+						</li>
+                        <li id="liActuar">
+							<a href="#tab_actuar" data-toggle="tab">
+						<b>	4.Actuar </b></a>
+						</li>
+					</ul>
+					<div class="tab-content">
+                    <!-- planear-->
+						<div class="tab-pane active" id="tab_planear">
+                               <div class="tabbable-panel">
+                                <div class="tabbable-line">
+                                    <ul class="nav nav-tabs  centro">
+                                        <li id="liRecursos" class="active">
+                                            <a href="#tab_recursos" data-toggle="tab">
+                                        <b>	1.Recursos </b></a>
+                                        </li>
+                                        <li id="liGesInt">
+                                            <a href="#tab_gestionInt" data-toggle="tab">
+                                        <b>	2.Gestión Integral del SGSST </b> </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                    <!-- recur-->
+                                        <div class="tab-pane active" id="tab_recursos">
+                                               <h4 class="centro">
+								Recursos (10%)
+							</h4>
+                            <input class="hidden"  name="cantidad" id="cantidad1" value="<%=pregunPlanA.length %>" readonly>
+                            <div class="tab-pane-inter">
+                                
+                                <% pregunPlanA.forEach(function(prePlan) { %>
+                                <div class="pregu">
+                                <p><%=prePlan.descripcion %></p>
+                                 <input class="hidden" type="" name="codigo<%=prePlan.codigo %>" id="codigo<%=prePlan.codigo %>" value="<%=prePlan.codigo %>">
+                                <div class="row ">
+                                   
+                                
+                                   <div class="col-sm-7 col-md-4">
+                                        <label for="cum" class="col-sm-5 col-md-4">¿Cumple?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnC" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="T">Totalmente</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="NC">No Cumple</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+
+                                 <input type="hidden" name="est<%=prePlan.codigo %>" id="est<%=prePlan.codigo %>" value="T">
+                                
+                                   <div id="justifica<%=prePlan.codigo %>" class="col-sm-4 col-md-4 hidden">
+                                        <label for="just" class="col-sm-5 col-md-4">¿Justifica?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnJ" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="J">Justifica</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="NJ">No Justifica</a>
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                    </div>
+
+                                  <div class="col-sm-8 col-md-5">
+                                        <label for="cum" class="col-sm-7 col-md-5">Puntaje Esperado: </label>
+                                        <input class="noBorder" type="" name="puntaje<%=prePlan.codigo %>" id="puntaje<%=prePlan.codigo %>" value="<%=prePlan.puntaje %>" readonly>
+                                                <br>
+
+                                    </div>
+  
+                                </div>
+                                </div>
+                                <% }); %>   
+                            </div>
+							    <br>
+								<a id="btn_Guardar_Recursos" class="btn btn-success" href="" data-toggle="tab">
+									Continuar
+								</a>
+                                <a id="btn_Cancelar" class="btn btn-warning" href="" data-toggle="tab">
+									Cancelar
+								</a>
+							</p>
+
+                                        </div>
+                                    <!-- gesti int-->   
+                                        <div class="tab-pane" id="tab_gestionInt">
+                                           <h4 class="centro">
+								Gestión Integral del SGSST (15%)
+							</h4>
+                             <input class="hidden"  name="cantidad" id="cantidad2" value="<%=pregunPlanB.length %>" readonly>
+                            <div class="tab-pane-inter">
+                               
+                                <% pregunPlanB.forEach(function(prePlan) { %>
+                                <div class="pregu">
+                                <p><%=prePlan.descripcion %></p>
+                                <input class="hidden" type="" name="codigo<%=prePlan.codigo %>" id="codigo<%=prePlan.codigo %>" value="<%=prePlan.codigo %>">
+                                <div class="row ">
+                                   
+                                
+                                   <div class="col-sm-7 col-md-4">
+                                        <label for="cum" class="col-sm-5 col-md-4">¿Cumple?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnC" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="T">Totalmente</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="NC">No Cumple</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+
+                                 <input type="" class="hidden" name="est<%=prePlan.codigo %>" id="est<%=prePlan.codigo %>" value="T">
+                                
+                                   <div id="justifica<%=prePlan.codigo %>" class="col-sm-4 col-md-4 hidden">
+                                        <label for="just" class="col-sm-5 col-md-4">¿Justifica?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnJ" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="J">Justifica</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="NJ">No Justifica</a>
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                    </div>
+
+                                  <div class="col-sm-8 col-md-5">
+                                        <label for="cum" class="col-sm-7 col-md-5">Puntaje Esperado: </label>
+                                        <input class="noBorder" type="" name="puntaje<%=prePlan.codigo %>" id="puntaje<%=prePlan.codigo %>" value="<%=prePlan.puntaje %>" readonly>
+                                                <br>
+                                            
+                                    
+                                    </div>
+                       
+
+                                </div>
+                                </div>
+                                <% }); %>   
+                            </div>
+							
+								<a id="btn-guardarGestInt" class="btn btn-success" href=""  data-toggle="tab" >
+									Continuar
+								</a>
+                                <a id="btn_cancelar"  class="btn btn-warning" href=""  data-toggle="tab" >
+									Cancelar
+								</a>
+							</p>
+                                            
+                                        </div>
+                                    
+                                    </div> 
+                                </div> 
+                            </div> <!-- tab planear interno-->    
+
+						</div>
+                     <!-- gesti-->   
+						<div class="tab-pane" id="tab_gestion">
+						
+                                <div class="tabbable-panel">
+                                    <div class="tabbable-line">
+                                        <ul class="nav nav-tabs  centro">
+                                            <li id="li-salud" class="active">
+                                                <a href="#tab_gesSalu" data-toggle="tab">
+                                            <b>	1.Gestión de la Salud </b></a>
+                                            </li>
+                                            <li id="li-peligros">
+                                                <a href="#tab_gestionPel" data-toggle="tab">
+                                            <b>	2.Gestión de Peligros y Riesgos </b> </a>
+                                            </li>
+                                            <li id="li-amenazas">
+                                                <a href="#tab_gestionAme" data-toggle="tab">
+                                            <b>	3.Gestión de Amenazas</b> </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                        <!-- salud-->
+                                            <div class="tab-pane active" id="tab_gesSalu">
+                                               <h4 class="centro">
+								Gestión de la Salud (20%)
+							</h4>
+                            <input class="hidden"  name="cantidad" id="cantidad3" value="<%=pregunGi1.length %>" readonly>
+                            <div class="tab-pane-inter">
+                                
+                                <% pregunGi1.forEach(function(prePlan) { %>
+                                <div class="pregu">
+                                <p><%=prePlan.descripcion %></p>
+                                
+                                <input class="hidden" type="" name="codigo<%=prePlan.codigo %>" id="codigo<%=prePlan.codigo %>" value="<%=prePlan.codigo %>">
+                                <div class="row ">
+                                   
+                                
+                                   <div class="col-sm-7 col-md-4">
+                                        <label for="cum" class="col-sm-5 col-md-4">¿Cumple?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnC" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="T">Totalmente</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="NC">No Cumple</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+
+                                 <input class="hidden" type="" name="est<%=prePlan.codigo %>" id="est<%=prePlan.codigo %>" value="T">
+                                
+                                   <div id="justifica<%=prePlan.codigo %>" class="col-sm-4 col-md-4 hidden">
+                                        <label for="just" class="col-sm-5 col-md-4">¿Justifica?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnJ" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="J">Justifica</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="NJ">No Justifica</a>
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                    </div>
+
+                                  <div class="col-sm-8 col-md-5">
+                                        <label for="cum" class="col-sm-7 col-md-5">Puntaje Esperado: </label>
+                    
+                                        <input class="noBorder" type="" name="puntaje<%=prePlan.codigo %>" id="puntaje<%=prePlan.codigo %>" value="<%=prePlan.puntaje %>" readonly>
+
+                                                <br>
+                                            
+                                    
+                                    </div>
+                       
+
+                                </div>
+                                </div>
+                                <% }); %>   
+                            </div>
+								<a id="btn_Guardar_GestSalud" class="btn btn-success" href="" data-toggle="tab">
+									Continuar
+								</a>
+                                <a id="btn_Cancelar" class="btn btn-warning" href="" data-toggle="tab">
+									Cancelar
+								</a>
+							</p>
+
+                                            </div>
+                                        <!-- peligros-->   
+                                            <div class="tab-pane" id="tab_gestionPel">
+                                                   <h4 class="centro">
+								Gestión de Peligros y Riesgos (30%)
+							</h4>
+                            <input class="hidden"  name="cantidad" id="cantidad4" value="<%=pregunGi2.length %>" readonly>
+                            <div class="tab-pane-inter">
+                                
+                                <% pregunGi2.forEach(function(prePlan) { %>
+                                <div class="pregu">
+                                <p><%=prePlan.descripcion %></p>
+                                <input class="hidden" type="" name="codigo<%=prePlan.codigo %>" id="codigo<%=prePlan.codigo %>" value="<%=prePlan.codigo %>">
+                                <div class="row ">
+                                   
+                                
+                                   <div class="col-sm-7 col-md-4">
+                                        <label for="cum" class="col-sm-5 col-md-4">¿Cumple?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnC" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="T">Totalmente</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="NC">No Cumple</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+
+                                 <input class="hidden" type="" name="est<%=prePlan.codigo %>" id="est<%=prePlan.codigo %>" value="T">
+                                
+                                   <div id="justifica<%=prePlan.codigo %>" class="col-sm-4 col-md-4 hidden">
+                                        <label for="just" class="col-sm-5 col-md-4">¿Justifica?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnJ" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="J">Justifica</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="NJ">No Justifica</a>
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                    </div>
+
+                                  <div class="col-sm-8 col-md-5">
+                                        <label for="cum" class="col-sm-7 col-md-5">Puntaje Esperado: </label>
+                                         <input class="noBorder" type="" name="puntaje<%=prePlan.codigo %>" id="puntaje<%=prePlan.codigo %>" value="<%=prePlan.puntaje %>" readonly>
+                                                <br>
+                                            
+                                    
+                                    </div>
+                       
+
+                                </div>
+                                </div>
+                                <% }); %>   
+                            </div>
+							
+								<a id="btn_GestionPeligros" class="btn btn-success" href="" data-toggle="tab">
+									Continuar
+								</a>
+                                <a id="btn_cancelar" class="btn btn-warning" href="" data-toggle="tab">
+									Cancelar
+								</a>
+							</p>
+                                                
+                                            </div>
+                                        <!-- amenazas-->   
+                                            <div class="tab-pane" id="tab_gestionAme">
+                                                   <h4 class="centro">
+								Gestión de la Amenazas (10%)
+							</h4>
+                            <input class="hidden"  name="cantidad" id="cantidad5" value="<%=pregunGi3.length %>" readonly>
+                            <div class="tab-pane-inter">
+                                
+                                <% pregunGi3.forEach(function(prePlan) { %>
+                                <div class="pregu">
+                                <p><%=prePlan.descripcion %></p>
+                                <input class="hidden" type="" name="codigo<%=prePlan.codigo %>" id="codigo<%=prePlan.codigo %>" value="<%=prePlan.codigo %>">
+                                <div class="row ">
+                                   
+                                
+                                   <div class="col-sm-7 col-md-4">
+                                        <label for="cum" class="col-sm-5 col-md-4">¿Cumple?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnC" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="T">Totalmente</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="NC">No Cumple</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+
+                                 <input class="hidden" type="" name="est<%=prePlan.codigo %>" id="est<%=prePlan.codigo %>" value="T">
+                                
+                                   <div id="justifica<%=prePlan.codigo %>" class="col-sm-4 col-md-4 hidden">
+                                        <label for="just" class="col-sm-5 col-md-4">¿Justifica?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnJ" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="J">Justifica</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="NJ">No Justifica</a>
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                    </div>
+
+                                  <div class="col-sm-8 col-md-5">
+                                        <label for="cum" class="col-sm-7 col-md-5">Puntaje Esperado: </label>
+                    
+                                             <input class="noBorder" type="" name="puntaje<%=prePlan.codigo %>" id="puntaje<%=prePlan.codigo %>" value="<%=prePlan.puntaje %>" readonly>
+                                                <br>
+                                            
+                                    
+                                    </div>
+                       
+
+                                </div>
+                                </div>
+                                <% }); %>   
+                            </div>
+							
+								<a id="btn_GestAmenazas" class="btn btn-success" href="" data-toggle="tab">
+									Continuar
+								</a>
+                                <a id="btn_cancelar" class="btn btn-warning" href="" data-toggle="tab">
+									Cancelar
+								</a>
+							</p>
+                                                
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                </div> <!-- tab gest interno--> 
+							
+						</div>
+                     <!-- verifi-->    
+						<div class="tab-pane" id="tab_verificar">
+                        <div class="tabbable-panel">
+							                    <h4 class="centro">
+								Verificación del SGSST (5%)
+							</h4>
+                            <input class="hidden"  name="cantidad" id="cantidad6" value="<%=pregunVeri.length %>" readonly>
+                            <div class="tab-pane-inter">
+                                
+                                <% pregunVeri.forEach(function(prePlan) { %>
+                                <div class="pregu">
+                                <p><%=prePlan.descripcion %></p>
+                                <input class="hidden" type="" name="codigo<%=prePlan.codigo %>" id="codigo<%=prePlan.codigo %>" value="<%=prePlan.codigo %>">
+                                <div class="row ">
+                                   
+                                
+                                   <div class="col-sm-7 col-md-4">
+                                        <label for="cum" class="col-sm-5 col-md-4">¿Cumple?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnC" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="T">Totalmente</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="NC">No Cumple</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+
+                                 <input class="hidden" type="" name="est<%=prePlan.codigo %>" id="est<%=prePlan.codigo %>" value="T">
+                                
+                                   <div id="justifica<%=prePlan.codigo %>" class="col-sm-4 col-md-4 hidden">
+                                        <label for="just" class="col-sm-5 col-md-4">¿Justifica?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnJ" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="J">Justifica</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="NJ">No Justifica</a>
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                    </div>
+
+                                  <div class="col-sm-8 col-md-5">
+                                        <label for="cum" class="col-sm-7 col-md-5">Puntaje Esperado: </label>
+                    
+                                                <input class="noBorder" type="" name="puntaje<%=prePlan.codigo %>" id="puntaje<%=prePlan.codigo %>" value="<%=prePlan.puntaje %>" readonly>
+                                                <br>
+                                            
+                                    
+                                    </div>
+                       
+
+                                </div>
+                                </div>
+                                <% }); %>   
+                            </div>
+							
+								<a id="btn_Verificar" class="btn btn-success" href="" data-toggle="tab">
+									Continuar
+								</a>
+                                <a id="btn_cancelar" class="btn btn-warning" href="" data-toggle="tab">
+									Cancelar
+								</a>
+							</p>
+						</div>
+						</div>
+                     <!--actuar -->
+                       	<div class="tab-pane" id="tab_actuar">
+                             <div class="tabbable-panel">
+							                    <h4 class="centro">
+								Mejoramiento (10%)
+							</h4>
+                            <input class="hidden"  name="cantidad" id="cantidad7" value="<%=pregunVeri.length %>" readonly>
+
+                            <div class="tab-pane-inter">
+                                
+                                <% pregunAct.forEach(function(prePlan) { %>
+                                <div class="pregu">
+                                <p><%=prePlan.descripcion %></p>
+                                <input class="hidden" type="" name="codigo<%=prePlan.codigo %>" id="codigo<%=prePlan.codigo %>" value="<%=prePlan.codigo %>">
+                                <div class="row ">
+                                   
+                                
+                                   <div class="col-sm-7 col-md-4">
+                                        <label for="cum" class="col-sm-5 col-md-4">¿Cumple?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnC" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="T">Totalmente</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="cum<%=prePlan.codigo %>" data-title="NC">No Cumple</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+
+                                 <input class="hidden" type="" name="est<%=prePlan.codigo %>" id="est<%=prePlan.codigo %>" value="T">
+                                
+                                   <div id="justifica<%=prePlan.codigo %>" class="col-sm-4 col-md-4 hidden">
+                                        <label for="just" class="col-sm-5 col-md-4">¿Justifica?</label>
+                                        <div class="">
+                                            <div class="">
+                                                <div id="radioBtnJ" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="J">Justifica</a>
+                                                    <a class="btn btn-primary btn-sm notActive" data-parent="<%=prePlan.codigo %>" data-toggle="just<%=prePlan.codigo %>" data-title="NJ">No Justifica</a>
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                    </div>
+
+                                  <div class="col-sm-8 col-md-5">
+                                        <label for="cum" class="col-sm-7 col-md-5">Puntaje Esperado: </label>
+                    
+                                                <input class="noBorder" type="" name="puntaje<%=prePlan.codigo %>" id="puntaje<%=prePlan.codigo %>" value="<%=prePlan.puntaje %>" readonly>
+                                                <br>
+                                            
+                                    
+                                    </div>
+                       
+
+                                </div>
+                                </div>
+                                <% }); %>   
+                            </div>
+							
+								<a id="btn_finalizar" class="btn btn-success" href=""  >
+									Finalizar
+								</a>
+                                <a id="btn_cancelar3" class="btn btn-warning" href="" >
+									Cancelar
+								</a>
+							</p>
+                            </div>
+					     </div> 
+                    </div> 
+                </div> 
+			</div> <!-- tab-->
+		</div>
+	</div>
+</div>
+ <script src="../javascripts/evaluacionInicial.js"></script>
+
+			
