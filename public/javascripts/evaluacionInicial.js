@@ -123,14 +123,15 @@ $(function(){
             $('#liActuar').addClass('active');
             $('#liVeri').removeClass('active');
             $('#btn_Verificar').css('display','none');
-         
+           alert(estadoEval);
             var cantidad=$('#cantidad6').val();
             var inicio=53;
+            var fin= parseInt(inicio) + parseInt(cantidad-1);
             if (estadoEval =="true"){
-               crearRespuesta(inicio, cantidad);
+               crearRespuesta(inicio, fin);
             }
             else {
-               crearEmprEvalRespu(inicio, cantidad);            
+               crearEmprEvalRespu(inicio, fin);            
             }
      
          });
@@ -225,7 +226,7 @@ function crearRespuesta(ini,cant){
             puntaje=$('#puntaje'+i).val();
         } 
        $.ajax({
-             url: 'https://sgquam.herokuapp.com/crearRespuestas',
+             url: 'hhttps://sgquam.herokuapp.com/crearRespuestas',
              method: 'post',
              data: {codEvalEmp, codPregunta, estado, puntaje },
              success: function(respCreada){
