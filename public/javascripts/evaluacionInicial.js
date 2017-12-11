@@ -226,7 +226,7 @@ function crearRespuesta(ini,cant){
             puntaje=$('#puntaje'+i).val();
         } 
        $.ajax({
-             url: 'hhttps://sgquam.herokuapp.com/crearRespuestas',
+             url: 'https://sgquam.herokuapp.com/crearRespuestas',
              method: 'post',
              data: {codEvalEmp, codPregunta, estado, puntaje },
              success: function(respCreada){
