@@ -216,9 +216,7 @@ module.exports ={
         var planes=  null;
         var user=req.user;
        
-        db.connect();
-
-     
+        db.connect(); 
         
        db.query('SELECT * FROM plan_mejoramiento_empr  WHERE codEvalEmp = ? ',codEvalEmp,  function(err, rows, fields){
             if (err) throw err;
@@ -232,7 +230,47 @@ module.exports ={
                 planes: planes
             });
         });
+        
+       
+    },
 
+    estadisticas : function(req, res, next){
+         var codEvalEmp=req.params.codEvalEmp;
+         var user=req.user;
+         var categoria1=null;
+         var config = require('.././database/config');
+         var db = mysql.createConnection(config);
+         db.connect();
+         db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=1  and pe.codigo=e.codigo and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
+            if (err) throw err;
+            
+            categoria1=rows;
+         db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=2  and pe.codigo=e.codigo and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
+                if (err) throw err;
+                
+                categoria2=rows;
+
+          db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=3  and pe.codigo=e.codigo and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
+                    if (err) throw err;
+                    
+                    categoria3=rows;
+            db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=4  and pe.codigo=e.codigo and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
+                        if (err) throw err;
+                        
+                        categoria4=rows;
+
+         res.render('sgsst/estadisticas',{
+            isAuthenticated : req.isAuthenticated(),
+            user : user,
+            categoria1: categoria1,
+            categoria2: categoria2,
+            categoria3: categoria3,
+            categoria4: categoria4
+        });
+        });
+        });  
+        });
+    });
     }
 
     

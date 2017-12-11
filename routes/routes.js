@@ -30,6 +30,7 @@ router.post('/crearRespuestas',AuthMiddleware.isLogged, controllers.SgsstControl
 router.get('/evaluacionesIniciales/:emp_id',AuthMiddleware.isLogged, controllers.SgsstController.evaluacionlesIni);
 router.post('/generarPlan',AuthMiddleware.isLogged, controllers.SgsstController.generarPlan);
 router.get('/verPlan/:codEvalEmp',AuthMiddleware.isLogged, controllers.SgsstController.verPlan);
+router.get('/estadisticas/:codEvalEmp',AuthMiddleware.isLogged, controllers.SgsstController.estadisticas);
 
 
 module.exports = router;

@@ -166,6 +166,14 @@ $(function(){
             $('#verPlan').attr('href','https://sgquam.herokuapp.com/verPlan/'+codEvalEmp);
      
          });
+
+         $('#verEstadisticas').click(function(e){
+            
+               var elemento= $(this);
+                var codEvalEmp= elemento.parent().parent().find('#codEval').text();
+               $('#verEstadisticas').attr('href','https://sgquam.herokuapp.com/estadisticas/'+codEvalEmp);
+        
+            });
  
 
 });

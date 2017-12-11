@@ -1,0 +1,70 @@
+<% include  .././template/nav.ejs%>
+ <h4 class="centro"><b>Estadisticas </b> </h4><br>
+  <h4 class="centro"><b>(la idea es graficar, esta pendiente  hacerlas) </b> </h4><br>
+
+  <div class="container">
+    <div class="row ">
+    <table class="table table-striped custab">
+    <thead>
+  <!--  <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
+        <tr>
+            
+            <th class="arriba">Categoría</th>
+            <th class="arriba">Puntaje Esperado</th>
+            <th class="arriba">Puntaje Obtenido</th>
+            
+        </tr>
+    </thead>
+   <% categoria1.forEach(function(cat1) { %>
+  
+            <tr>
+                 <% if(cat1.categoria == 1){ %>
+                <td>Recursos</td>
+                   <% }else{  %>
+                    <td>Gestión Integral del SGSST</td>
+                  <% }  %>
+                <td><%=cat1.esperado%> %</td>   
+                <td><%=cat1.obtenido%> %</td>
+                
+            </tr>
+           <% }); %>
+      <% categoria2.forEach(function(cat2) { %>       
+            <tr>
+                 <% if(cat2.categoria == 1){ %>
+                <td>Gestión de la Salud</td>
+                 <% } else  if(cat2.categoria == 2){ %>
+                  <td>Gestión de Peligros y Riesgos </td>
+                   <% }else{  %>
+                    <td>Gestión de Amenazas </td>
+                  <% }  %>
+                <td><%=cat2.esperado%> %</td>   
+                <td><%=cat2.obtenido%> %</td>
+                
+            </tr>
+           <% }); %>  
+
+        <% categoria3.forEach(function(cat3) { %> 
+             <tr>
+                 
+                <td>Verificación del SGSST</td>
+                 
+                <td><%=cat3.esperado%> %</td>   
+                <td><%=cat3.obtenido%> %</td>
+                
+            </tr>
+                <% }); %>  
+
+        <% categoria4.forEach(function(cat4) { %> 
+              <tr>
+                 
+                <td>Mejoramiento</td>
+                 
+                <td><%=cat4.esperado%> %</td>   
+                <td><%=cat4.obtenido%> %</td>
+                
+            </tr>
+           <% }); %>  
+    </table>
+    </div>
+</div>
+ <script src="../javascripts/evaluacionInicial.js"></script>
