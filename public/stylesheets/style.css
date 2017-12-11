@@ -258,3 +258,13 @@ Licensed under MIT
     
 }
 
+@media(max-width: 767px){
+    
+    .fondo{
+        margin-top: 182px;
+    }
+    .logo{
+        width: 100%;
+    }
+}
+
