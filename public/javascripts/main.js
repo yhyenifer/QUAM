@@ -46,7 +46,17 @@ $(document).ready(function()
                            }else{
                                alert("Debe seleccionar una empresa");
                            }
-                   });            
+                   }); 
+    $("#verEval1").click(function () {
+                    var emp_id= $("#empresa_id").val();
+                    
+                           if (emp_id != ''){
+                              
+                               $('#verEval').attr('href','https://sgquam.herokuapp.com/evaluacionesIniciales/'+emp_id);
+                               }else{
+                                   alert("Debe seleccionar una empresa");
+                               }
+                       });                          
 
     $("#evalinii").click(function () {
         var emp_id= $("#empresa_id").val();
