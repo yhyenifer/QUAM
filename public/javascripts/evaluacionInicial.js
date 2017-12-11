@@ -123,7 +123,7 @@ $(function(){
             $('#liActuar').addClass('active');
             $('#liVeri').removeClass('active');
             $('#btn_Verificar').css('display','none');
-           alert(estadoEval);
+          
             var cantidad=$('#cantidad6').val();
             var inicio=53;
             var fin= parseInt(inicio) + parseInt(cantidad-1);
