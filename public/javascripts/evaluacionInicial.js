@@ -159,21 +159,21 @@ $(function(){
 
 
 
-        //  $('#verPlan').click(function(e){
+         $('#verPlan').click(function(e){
          
-        //     var elemento= $(this);
-        //      var codEvalEmp= elemento.parent().parent().find('#codEval').text();
-        //     $('#verPlan').attr('href','https://sgquam.herokuapp.com/verPlan/'+codEvalEmp);
+            var elemento= $(this);
+             var codEvalEmp= elemento.parent().parent().find('#codEval').text();
+            $('#verPlan').attr('href','https://sgquam.herokuapp.com/verPlan/'+codEvalEmp);
      
-        //  });
+         });
 
-         $('#verEstadisticas').click(function(e){
+        //  $('#verEstadisticas').click(function(e){
             
-               var elemento= $(this);
-                var codEvalEmp= elemento.parent().parent().find('#codEval').text();
-               $('#verEstadisticas').attr('href','https://sgquam.herokuapp.com/estadisticas/'+codEvalEmp);
+        //        var elemento= $(this);
+        //         var codEvalEmp= elemento.parent().parent().find('#codEval').text();
+        //        $('#verEstadisticas').attr('href','https://sgquam.herokuapp.com/estadisticas/'+codEvalEmp);
         
-            });
+        //     });
  
 
 });
