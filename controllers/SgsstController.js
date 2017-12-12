@@ -193,10 +193,11 @@ module.exports ={
                       }
                       db.query('INSERT INTO plan_mejoramiento_empr SET ? ',plan,  function(err, rows, fields){                        
                         if (err) throw err;
-                       // db.end();
+                       
                     });
                     });
                 }
+                 db.end();
             });
          }   
         

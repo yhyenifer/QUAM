@@ -256,7 +256,7 @@ function generarPlan(){
         method : 'post',
         data: {codEvalEmp: codEvalEmp },
         success: function(){
-           console.log('bien');
+          // console.log('bien');
         }
     });
 }
