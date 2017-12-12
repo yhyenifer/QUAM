@@ -159,13 +159,13 @@ $(function(){
 
 
 
-         $('#verPlan').click(function(e){
+        //  $('#verPlan').click(function(e){
          
-            var elemento= $(this);
-             var codEvalEmp= elemento.parent().parent().find('#codEval').text();
-            $('#verPlan').attr('href','https://sgquam.herokuapp.com/verPlan/'+codEvalEmp);
+        //     var elemento= $(this);
+        //      var codEvalEmp= elemento.parent().parent().find('#codEval').text();
+        //     $('#verPlan').attr('href','https://sgquam.herokuapp.com/verPlan/'+codEvalEmp);
      
-         });
+        //  });
 
          $('#verEstadisticas').click(function(e){
             
