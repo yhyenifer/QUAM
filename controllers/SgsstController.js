@@ -157,30 +157,33 @@ module.exports ={
         var db = mysql.createConnection(config);
         
         var num= null;
-        var codigoEval= null;
+        var codigoPregunta= null;
         var itemsPlan=null;
         db.connect();
-        
         db.query('SELECT count(e.codigo)num FROM eval_empr_resp e WHERE e.puntaje =0  AND e.codEvalEmp = ? ',codEvalEmp,  function(err, rows, fields){
             if (err) throw err;
             num=rows[0].num;
          if (num!=0){
-            db.query('SELECT e.codigo FROM eval_empr_resp e WHERE e.puntaje =0  AND e.codEvalEmp = ? ',codEvalEmp,  function(err, rows, fields){
+            db.query('SELECT e.codPregunta cod  FROM eval_empr_resp e WHERE e.puntaje =0  AND e.codEvalEmp = ? ',codEvalEmp,  function(err, rows, fields){
                 if (err) throw err;
-                codigoEval=rows;
+                codigoPregunta=rows;
                 for (i=0; i<num; i++){
-                    db.query('SELECT * FROM plan_mejoramiento  WHERE codigo = ? ',codigoEval[i].codigo,  function(err, rows, fields){                        
-                        if (err) throw err;
+                    
+                      db.query('SELECT * FROM plan_mejoramiento  WHERE codigo = ? ',codigoPregunta[i].cod,  function(err, rows, fields){                        
+                          if (err) throw err;
                         itemsPlan=rows;
-                        var fechaAct = new Date();
-                        var mes=itemsPlan[0].plazo;
-                        var observaciones =itemsPlan[0].observaciones;
-                        if(observaciones==null){
-                            observaciones="";
-                        }
+                          var fechaAct = new Date();
+                          
+                          var mes=itemsPlan[0].plazo;
+                            var observaciones =itemsPlan[0].observaciones;
+                            
+                         if(observaciones==null){
+                             observaciones="";
+                          }
                        
-                        fechaAct.setMonth(fechaAct.getMonth()+mes);
-                        var fecha= dateFormat(fechaAct, 'yyyy-mm-dd h:MM:ss');
+                         fechaAct.setMonth(fechaAct.getMonth()+mes);
+                         var fecha= dateFormat(fechaAct, 'yyyy-mm-dd h:MM:ss');
+                        //console.log('fecha  '+fechaAct);
                         var plan = {
                         codEvalEmp: codEvalEmp,
                         actividad: itemsPlan[0].actividad,
@@ -191,14 +194,17 @@ module.exports ={
                         responsable: itemsPlan[0].responsable,
                         act_subsanar: itemsPlan[0].act_subsanar
                       }
+
+                       //console.log('plan '+plan);
+                      
                       db.query('INSERT INTO plan_mejoramiento_empr SET ? ',plan,  function(err, rows, fields){                        
                         if (err) throw err;
                        
                     });
                     });
-                }
-                // db.end();
-            });
+               }
+                 
+           });
          }   
         
         
@@ -224,7 +230,7 @@ module.exports ={
             
             planes=rows;
             db.end();
-            console.log(planes);
+            //console.log(planes);
             res.render('sgsst/plan',{
                 isAuthenticated : req.isAuthenticated(),
                 user : user,
@@ -237,25 +243,26 @@ module.exports ={
 
     estadisticas : function(req, res, next){
          var codEvalEmp=req.params.codEvalEmp;
+         console.log(codEvalEmp);
          var user=req.user;
          var categoria1=null;
          var config = require('.././database/config');
          var db = mysql.createConnection(config);
          db.connect();
-         db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=1  and pe.codigo=e.codigo and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
+         db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=1  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
             if (err) throw err;
             
             categoria1=rows;
-         db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=2  and pe.codigo=e.codigo and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
+         db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=2  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
                 if (err) throw err;
                 
                 categoria2=rows;
 
-          db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=3  and pe.codigo=e.codigo and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
+          db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=3  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
                     if (err) throw err;
                     
                     categoria3=rows;
-            db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=4  and pe.codigo=e.codigo and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
+            db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=4  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ',codEvalEmp,  function(err, rows, fields){
                         if (err) throw err;
                         
                         categoria4=rows;
