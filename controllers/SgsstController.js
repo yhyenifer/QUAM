@@ -136,7 +136,7 @@ module.exports ={
             emp_id,  function(err, rows, fields){
                 if (err) throw err; 
              evaluaciones = rows; 
-             //db.end();
+               db.end();
              res.render('sgsst/evaluacionesIniciales',{
                 isAuthenticated : req.isAuthenticated(),
                 user : user,
