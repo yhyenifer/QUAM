@@ -10,7 +10,7 @@ var routes = require('./routes/routes');
 var passport = require('passport');
 
 require('./passport/passport')(passport);
-
+global.suite= require('./suite');
 
 
 var app = express();
@@ -24,8 +24,11 @@ app.use(session({
 app.use(flash());
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+ app.set('views', path.join(__dirname, 'views'));
+ app.set('view engine', 'ejs');
+	
+
+app.locals=global.suite;
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

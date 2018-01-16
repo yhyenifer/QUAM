@@ -1,6 +1,8 @@
 
 $(document).ready(function(){
     
+    
+    
     $('[data-toggle="myToolTip"]').tooltip();   
     
     });
@@ -137,10 +139,11 @@ $(function(){
          });
                  // guardar la respuesta de verificar
         $('#btn_finalizar').click(function(e){
+            var url= $('#url').val();
             //e.preventDefault();
             var estadoEval= $('#evalCreada').val();
             var emp_id=$('#empr_cod').val(); 
-            $('#btn_finalizar').attr('href','https://sgquam.herokuapp.com/evaluacionesIniciales/'+emp_id);
+            $('#btn_finalizar').attr('href',url+'/evaluacionesIniciales/'+emp_id);
             var cantidad=$('#cantidad7').val();
             
             var inicio=57;
@@ -180,15 +183,16 @@ $(function(){
 });
 //crear evaluacion y guardar la respuesta de recursos
 function crearEmprEvalRespu(ini, cant){
+    var url= $('#url').val();
     var userCod=$('#user_cod').val();
     var emprCod=$('#empr_cod').val();
     var evalCreada=$('#evalCreada').val();
     
    
-    
+   // console.log(url);
    //crear la evaluacion para la empresa
       $.ajax({
-          url: 'https://sgquam.herokuapp.com/crearEval',
+          url: url+'/crearEval',
           method : 'post',
           data: {userCod: userCod, emprCod: emprCod },
           success: function(json){
@@ -208,7 +212,7 @@ function crearEmprEvalRespu(ini, cant){
                              puntaje=$('#puntaje'+i).val();
                          } 
                         $.ajax({
-                              url: 'https://sgquam.herokuapp.com/crearRespuestas',
+                              url: url+'/crearRespuestas',
                               method: 'post',
                               data: {codEvalEmp, codPregunta, estado, puntaje },
                               success: function(respCreada){
@@ -225,6 +229,7 @@ function crearEmprEvalRespu(ini, cant){
 };
 
 function crearRespuesta(ini,cant){
+    var url= $('#url').val();
     for(i=ini; i<=cant; i++){
         
           var codEvalEmp=$('#idEmpEval').val();  
@@ -235,7 +240,7 @@ function crearRespuesta(ini,cant){
             puntaje=$('#puntaje'+i).val();
         } 
        $.ajax({
-             url: 'https://sgquam.herokuapp.com/crearRespuestas',
+             url: url+'/crearRespuestas',
              method: 'post',
              data: {codEvalEmp, codPregunta, estado, puntaje },
              success: function(respCreada){
@@ -249,11 +254,11 @@ function crearRespuesta(ini,cant){
 }
 
 function generarPlan(){
-  
+    var url= $('#url').val();
     var codEvalEmp= $('#idEmpEval').val();;
 
     $.ajax({
-        url: 'https://sgquam.herokuapp.com/generarPlan',
+        url: url+'/generarPlan',
         method : 'post',
         data: {codEvalEmp: codEvalEmp },
         success: function(){

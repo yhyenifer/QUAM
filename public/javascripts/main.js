@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
-    
- 
+    var url= $('#url').val();
+
 
    $('.empresa').on('click', function(){
        var elemento= $(this);
@@ -29,10 +29,9 @@ $(document).ready(function()
 
     $("#evalini").click(function () {
          var emp_id= $("#empresa_id").val();
-         
                 if (emp_id != ''){
                    
-                    $('#evalini').attr('href','https://sgquam.herokuapp.com/evaluacionInicial/'+emp_id);
+                    $('#evalini').attr('href',url+'/evaluacionInicial/'+emp_id);
                     }else{
                         alert("Debe seleccionar una empresa");
                     }
@@ -42,7 +41,7 @@ $(document).ready(function()
                 
                        if (emp_id != ''){
                           
-                           $('#verEval').attr('href','https://sgquam.herokuapp.com/evaluacionesIniciales/'+emp_id);
+                           $('#verEval').attr('href',url+'/evaluacionesIniciales/'+emp_id);
                            }else{
                                alert("Debe seleccionar una empresa");
                            }
@@ -52,18 +51,29 @@ $(document).ready(function()
                     
                            if (emp_id != ''){
                               
-                               $('#verEval1').attr('href','https://sgquam.herokuapp.com/evaluacionesIniciales/'+emp_id);
+                               $('#verEval1').attr('href',url+'/evaluacionesIniciales/'+emp_id);
                                }else{
                                    alert("Debe seleccionar una empresa");
                                }
-                       });                          
+                       });   
+                       
+    $("#hacerMatriz").click(function () {
+            var emp_id= $("#empresa_id").val();
+                        
+                if (emp_id != ''){
+                                  
+                    $('#hacerMatriz').attr('href',url+'/matriz/'+emp_id);
+                                   }else{
+                                       alert("Debe seleccionar una empresa");
+                                   }
+                           });                   
 
     $("#evalinii").click(function () {
         var emp_id= $("#empresa_id").val();
                 
                     if (emp_id != ''){
                           
-                          $('#evalinii').attr('href','https://sgquam.herokuapp.com/evaluacionInicial/'+emp_id);
+                          $('#evalinii').attr('href',url+'/evaluacionInicial/'+emp_id);
                           }else{
                                alert("Debe seleccionar una empresa");
                            }

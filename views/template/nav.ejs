@@ -1,6 +1,5 @@
         <% include  default.ejs%>
 
-
         <nav class="navbar navbar-default" role="navigation">
     	  <div>
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -17,7 +16,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="navbar-brand-centered">
 		      <ul class="nav navbar-nav">
-		        <li><a href="https://sgquam.herokuapp.com/inicio">Inicio</a></li>
+		        <li><a href="<%= suite.url%>/inicio">Inicio</a></li>
 		        <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">SG-SST <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
@@ -38,7 +37,7 @@
                     <li><a href="#">Ver Perfil</a></li>
                     <li><a href="#">Cambiar Contraseña</a></li>
                     <li class="divider"></li>
-                    <li><a href="https://sgquam.herokuapp.com/auth/logout">Salir</a></li>
+                    <li><a href="<%= suite.url%>/auth/logout">Salir</a></li>
                   </ul>
                 </li>		        
 		      </ul>

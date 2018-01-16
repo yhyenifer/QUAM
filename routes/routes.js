@@ -31,6 +31,13 @@ router.get('/evaluacionesIniciales/:emp_id',AuthMiddleware.isLogged, controllers
 router.post('/generarPlan',AuthMiddleware.isLogged, controllers.SgsstController.generarPlan);
 router.get('/verPlan/:codEvalEmp',AuthMiddleware.isLogged, controllers.SgsstController.verPlan);
 router.get('/estadisticas/:codEvalEmp',AuthMiddleware.isLogged, controllers.SgsstController.estadisticas);
+router.get('/matriz/:emp_id',AuthMiddleware.isLogged, controllers.SgsstController.crearMatriz);
+router.post('/cargarPel',AuthMiddleware.isLogged, controllers.SgsstController.cargarPeligro);
+router.post('/procesos',AuthMiddleware.isLogged, controllers.SgsstController.cargarProcesos);
+router.post('/guardarProceso',AuthMiddleware.isLogged, controllers.SgsstController.guardarProceso);
+router.post('/modificarProceso',AuthMiddleware.isLogged, controllers.SgsstController.modificarProceso);
+router.post('/deshabilitarProceso',AuthMiddleware.isLogged, controllers.SgsstController.deshabilitarProceso);
+
 
 
 module.exports = router;

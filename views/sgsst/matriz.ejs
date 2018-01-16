@@ -1,0 +1,600 @@
+<% include  .././template/nav.ejs%>
+
+<!-- line modal -->
+<div class="modal " id="procesoModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h5 class="modal-title" id="lineModalLabel">Administrar los Procesos de la empresa: <b><%= empresa[0].nombre %></b> </h5>
+		</div>
+		<div class="modal-body">
+			
+            <!-- content goes here -->
+			<form>
+              <div class="form-group">
+                <label for="">Nombre: </label>
+                <input type="text" class="form-control" id="nombreProceso" placeholder="Nombre del Proceso">
+              </div>
+              
+              <div class="form-group">
+                <label for="">Descripción: </label>
+                <textarea id="descProceso" class="form-control"></textarea>
+              </div>
+            
+              <button id="guardarProceso" type="button" onclick="addProceso()" class="btn btn-primary">Guardar</button>
+              <button id="editarProceso" type="button" onclick="modificarProceso()" class="btn btn-primary hidden">Modificar </button>
+
+            </form>
+
+		</div>
+		<div class="modal-footer">
+		<div class="container" style="    width: 573px;">
+                        <div class="row " style="height: 160px;    overflow-y: scroll;" >
+                        <table id="tableProcesos" class="table table-striped custab" style="text-align: left;">
+                        <thead>
+                    <!--  <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                   
+                    </tbody>
+                        </table>
+                        </div>
+                    </div>
+		</div>
+	</div>
+  </div>
+</div>
+
+
+<p class="hidden" id="url"><%=suite.url%> </p>
+
+<h2 class="hidden" id="codEmpresa"> <%=empresa[0].codigo%> </h2>
+
+ <h4 class="centro"><b>Matriz de Peligros de la empresa :</b> <%= empresa[0].nombre %></h4><br>
+
+<div class="container" style="    margin-top: -7em;">
+
+	<div class="row">
+		<section>
+
+        <div class="wizard">
+            <div class="wizard-inner">
+                <div class="connecting-line"></div>
+                <ul class="nav nav-tabs" role="tablist">
+
+                    <li role="presentation" class="active">
+                        <a href="#peligros" data-toggle="tab" aria-controls="step1" role="tab" title="Peligro">
+                            <span class="round-tab">
+                                <i class="glyphicon fa-exclamation-triangle fa"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="disabled">
+                        <a href="#controles" data-toggle="tab" aria-controls="step2" role="tab" title="Controles Existentes">
+                            <span class="round-tab">
+                                <i class="glyphicon fa-list-ol fa"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#valoracion" data-toggle="tab" aria-controls="step3" role="tab" title="Valoración del Riesgo">
+                            <span class="round-tab">
+                                <i class="glyphicon fa-check-square fa"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="disabled">
+                        <a href="#medidas" data-toggle="tab" aria-controls="complete" role="tab" title="Medidas de Intervención">
+                            <span class="round-tab">
+                                <i class="glyphicon fa-file-text fa"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <form role="form">
+                <div class="tab-content">
+                    <div class="tab-pane active" role="tabpanel" id="peligros">
+                        <div class="row">
+                            <div class="col-md-6" >
+                                <label class="" >Proceso:</label>
+                                        <select id="proceso" name="proceso" class="form-control ">
+                                        <option value="">Seleccione...</option>
+                                         
+                                       
+                                        </select>
+                                    <input type="button" class="" data-toggle="modal" title="Administre los procesos de la empresa"
+                                value=" Administrar Procesos" data-target="#procesoModal" style="border: none; font-size: 12px;"/>
+                            </div>
+                                <div class="col-md-6" >
+                                    <div class="form-group">
+                                    <label class="control-label " for="selectbasic">Actividad:</label>
+                                    <input id="actividad" class="form-control " type="text" name="actividad" value="">
+                                    </div>
+                                </div>
+                       </div>  <!-- row--> 
+
+                    <div class="row">
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                            <label class="control-label " for="selectbasic">Tarea:</label>
+                            <input id="tarea" class="form-control " type="text" name="tarea" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                            <label class="control-label " for="selectbasic">Zona:</label>
+                            <input id="zona" class="form-control " type="text" name="zona" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="cum" class="">¿Es Rutinaria?</label>
+                            <div class="">
+                            <div class="">
+                            <div id="rutinaria" class="btn-group">
+                                <a class="btn btn-primary btn-sm active"  data-toggle="rutinaria" data-title="S">Si</a>
+                                <a class="btn btn-primary btn-sm notActive"  data-toggle="rutinaria" data-title="N">No </a>
+                            </div>
+                            <input id="valRutinaria" class="hidden" type="text" name="rutinaria" value="S">
+                            </div>
+                            </div>
+                        </div>
+                      </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="" >Tipo de Peligro:</label>
+                                <select  id="tppeligro" name="tppeligro" class="form-control " onchange="cargarPeligro(this.value)" >
+                                <option value="">Seleccione...</option>
+                                 <% tpPeligro.forEach(function(tppeli) { %>
+                                <option  value="<%=tppeli.codigo%>"><%=tppeli.nombre%></option>
+                                  <% }); %> 
+                                </select>
+                        </div>
+                       
+                        <div class="col-md-4">
+                              <label class="" >Peligro:</label>
+                                <select id="peligro" name="peligro" class="form-control " onchange="cargarDatosPeligro(this.value)">
+                                    <option value="">Seleccione...</option> 
+                   
+                                </select>
+                                 
+                        </div>
+                        <div class="col-md-4">
+                             <div class="form-group">
+                            <label class="control-label " for="selectbasic">Peor Consecuencia:</label>
+                            <input id="peorConse" class="form-control " type="text" name="peor" value="" readonly>
+                            </div>
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label " for="selectbasic">Posibles Efectos:</label>
+                            <div class="input-controls-container">
+                            <textarea id="posiblesEfectos" class="form-control" readonly></textarea > <br> 
+                             </div>                          
+        		        </div>
+    		        </div>
+    		  
+                     
+                        <ul class="list-inline pull-left">
+                            <li><button type="button" class="btn btn-primary next-step">Continuar</button></li>
+                            
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="controles">
+                        
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label " for="selectbasic">Controles Existentes a nivel de la Fuente:</label>
+                            <div class="input-controls-container">
+                            <textarea id="fuente" class="form-control" ></textarea > <br> 
+                             </div>                          
+        		        </div>
+    		        </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label " for="selectbasic">Controles Existentes a nivel del Medio:</label>
+                            <div class="input-controls-container">
+                            <textarea id="medio" class="form-control" ></textarea > <br> 
+                             </div>                          
+        		        </div>
+    		        </div>
+
+                        <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label " for="selectbasic">Controles Existentes a nivel del Individuo:</label>
+                            <div class="input-controls-container">
+                            <textarea id="individuo" class="form-control" ></textarea > <br> 
+                             </div>                          
+        		        </div>
+    		        </div>
+
+
+                        <ul class="list-inline pull-left">
+                            <li><button type="button" class="btn btn-default prev-step">Atrás</button></li>
+                            <li><button type="button" class="btn btn-primary next-step">Continuar</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="valoracion">
+                        
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="" >Nivel de Deficiencia:</label>
+                                <select id="deficiencia" name="deficiencia" class="form-control " onchange="datoDeficiencia(this.value)">
+                                <option value="">Seleccione...</option>
+                                <option value="0">0 - Bajo</option>
+                                <option value="2">2 - Medio</option>
+                                <option value="6">6 - Alto</option>
+                                <option value="10">10 - Muy Alto</option>
+                                </select>
+                        </div>
+                        <div class="col-md-4">
+                              <label class="" >Nivel de Exposición:</label>
+                                <select id="exposicion" name="exposicion" class="form-control" onchange="datoExposicion(this.value)">
+                                <option value="">Seleccione...</option>
+                                <option value="4">4 - Continua</option>
+                                <option value="3">3 - Frecuente</option>
+                                <option value="2">2 - Ocacional</option>
+                                <option value="1">1 - Exporádica</option>
+                                </select>
+                        </div>
+                        <div class="col-md-4">
+                             <div class="form-group">
+                            <label class="control-label " for="selectbasic">Nivel de Probabilidad:</label>
+                            <input id="nivProbabilidad" class="form-control " type="text" name="probabilidad" value="" readonly>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="" >Nivel de Consecuencia:</label>
+                                <select id="consecuencia" name="consecuencia" class="form-control " onchange="datoConsecuencia(this.value)">
+                                <option value="">Seleccione...</option>
+                                <option value="10">Leve</option>
+                                <option value="25">Grave</option>
+                                <option value="60">Muy Grave</option>
+                                <option value="100">Catastrófico o Mortal</option>
+                                </select>
+                        </div>
+                        <div class="col-md-4">
+                              <label class="control-label " for="selectbasic">Número de Expuestos:</label>
+                            <input id="numExpuestos" class="form-control " type="number" name="expuestos" value="" min=0>
+
+                        </div>
+                        <div class="col-md-4">
+                             <div class="form-group">
+                            <label class="control-label " for="selectbasic">Nivel de Riesgo:</label>
+                            <input id="nivRiesgo" class="form-control " type="text" name="expuestos" value="" readonly >
+                            </div>
+                        </div>
+                    </div>     
+                        
+                    <div class="row">
+                      <div class="col-md-6" >
+                        <label class="" >Interpretación de la Probabilidad:</label>
+                        <input id="interpreProbabilidad" class="form-control " type="text" name="interProba" value="" readonly >
+     
+                     </div>
+                    <div class="col-md-6" >
+                        <div class="form-group">
+                        <label class="" >Interpretación del Riesgo:</label>
+                        <input id="interpreRiesgo" class="form-control " type="text" name="interProba" value="" readonly >
+                        </div>
+                    </div>
+                      </div>  <!-- row--> 
+
+                    <div class="row">
+                      <div class="col-md-6" >
+                        <label class="" >Aceptabilidad:</label>
+                        <input id="aceptabilidad" class="form-control " type="text" name="aceptabilidad" value="" readonly >
+                         <br>
+     
+                     </div>
+                       <div class="col-md-6">
+                          <label for="cum" class="">¿Existe un Requisto Legal Asociado?</label>
+                            <div class="">
+                            <div class="">
+                            <div id="reqLegal" class="btn-group">
+                                <a class="btn btn-primary btn-sm notActive"  data-toggle="rutinaria" data-title="S">Si</a>
+                                <a class="btn btn-primary btn-sm active"  data-toggle="rutinaria" data-title="N">No </a>
+                           
+                            </div>
+                            <input id="valreqLegal" class="hidden" type="text" name="rutinaria" value="N">
+
+                            </div>
+                            </div>
+                        </div>
+                        
+                      </div>  <!-- row-->                       
+
+                        <ul class="list-inline pull-left">
+                            <li><button type="button" class="btn btn-default prev-step">Atrás</button></li>
+                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Continuar</button></li>
+                        </ul>
+            </div>
+                    <div class="tab-pane" role="tabpanel" id="medidas">
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <div  class="form-check">
+                                        <label>
+                                            <input id="chkeli" type="checkbox" name="checkEliminacion" />
+                                            <span class="label-text"></span>Eliminación
+                                        </label>
+                                    </div>
+                                </div>
+                                <div  id="Eloptions" class="col-md-12 hidden ">
+                                  <textarea id="valEliminacion" class="form-control " type="text" name="eli" value="" placeholder="Digite la medida de intervención - Eliminación"  >
+                                  </textarea>
+                                </div>
+                        </div> 
+
+                         <div class="row">
+                                <div class="col-md-12">
+                                     <div class="form-check">
+                                        <label>
+                                            <input id="chsust" type="checkbox" name="checkSustitucion" >
+                                            <span class="label-text"></span>Sustitución
+                                        </label>
+                                    </div>
+                                </div>
+                                  <div  id="Suoptions" class="col-md-12 hidden ">
+                                  <textarea id="valSustitucion" class="form-control " type="text" name="eli" value="" placeholder="Digite la medida de intervención - Sustitución"  >
+                                  </textarea>
+                                </div>
+                        </div>  
+
+                        <div class="row">
+                                <div class="col-md-12">
+                                     <div class="form-check">
+                                        <label>
+                                            <input id="chctrling" type="checkbox" name="checkCtrlIng" >
+                                            <span class="label-text"></span>Controles de Ingeniería
+                                        </label>
+                                    </div>
+                                </div>
+                               
+                           <div id="CIoptions" class="hidden">
+                               <div id="texto1" class="col-md-12">
+
+                               </div>
+                                <div id="ctrIng">
+                                    
+                                    <div  class="dual-list3 list-left3 col-md-5 ">
+                                                            <div class="well text-right">
+                                                                <div class="row">
+                                                                    <div class="col-md-10">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon  fa-search " ></span>
+                                                                            <input type="text" name="SearchDualList" class="form-control" placeholder="Buscar" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="btn-group">
+                                                                            <a class="btn btn-default selector" title="Seleccionar Todo"><i class="glyphicon fa-square-o fa"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <ul id="controlesIng" class="list-group">
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="list-arrows col-md-1 text-center">
+                                                            <button type="button" class="btn btn-default btn-sm move-left">
+                                                                <span class="glyphicon fa-chevron-left fa"></span>
+                                                            </button>
+
+                                                            <button type="button" class="btn btn-default btn-sm move-right">
+                                                                <span class="glyphicon fa-chevron-right fa"></span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="dual-list3 list-right3 col-md-5">
+                                                            <div class="well">
+                                                                <div class="row">
+                                                                    <div class="col-md-2">
+                                                                        <div class="btn-group">
+                                                                            <a class="btn btn-default selector" title="Seleccionar Todo"><i class="glyphicon fa-square-o fa"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-10">
+                                                                        <div class="input-group">
+                                                                            <input type="text" name="SearchDualList" class="form-control" placeholder="Buscar" />
+                                                                            <span class="input-group-addon glyphicon  fa-search " style"display: table-cell;"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <ul id="controlesIngSeleccionados" class="list-group">
+                                                                   
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                         </div>
+                                         <br>
+                                        <input class="list-group-item" type="" name="" value="">
+                                        <button type="button" class="btn btn-default btn-sm move-right">
+                                                                <span class="glyphicon fa-chevron-add fa"></span>
+                                                            </button>
+
+                                </div> 
+                               
+                                 </div>
+                                 
+                        <div class="row">
+                                <div class="col-md-12">
+                                     <div class="form-check">
+                                        <label>
+                                            <input id="chctrladm" type="checkbox" name="checkCtrlAdmin" >
+                                            <span class="label-text"></span>Controles Administrativos, Señalización, Advertencia
+                                        </label>
+                                    </div>
+                                </div>
+                         
+                              <div id="CAoptions" class="hidden">
+                               <div id="texto2" class="col-md-12">
+
+                               </div>
+                          <div id="ctrAdm">
+                                    <div  class="dual-list2 list-left2 col-md-5 ">
+                                                            <div class="well text-right">
+                                                                <div class="row">
+                                                                    <div class="col-md-10">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon  fa-search " ></span>
+                                                                            <input type="text" name="SearchDualList" class="form-control" placeholder="Buscar" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="btn-group">
+                                                                            <a class="btn btn-default selector" title="Seleccionar Todo"><i class="glyphicon fa-square-o fa"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <ul  id="controlesAdmin" class="list-group">
+                                                                    
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="list-arrows col-md-1 text-center">
+                                                            <button type="button" class="btn btn-default btn-sm move-left">
+                                                                <span class="glyphicon fa-chevron-left fa"></span>
+                                                            </button>
+
+                                                            <button type="button" class="btn btn-default btn-sm move-right">
+                                                                <span class="glyphicon fa-chevron-right fa"></span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="dual-list2 list-right2 col-md-5">
+                                                            <div class="well">
+                                                                <div class="row">
+                                                                    <div class="col-md-2">
+                                                                        <div class="btn-group">
+                                                                            <a class="btn btn-default selector" title="Seleccionar Todo"><i class="glyphicon fa-square-o fa"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-10">
+                                                                        <div class="input-group">
+                                                                            <input type="text" name="SearchDualList" class="form-control" placeholder="Buscar" />
+                                                                            <span class="input-group-addon glyphicon  fa-search " style"display: table-cell;"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <ul id="controlesAdminSeleccionados" class="list-group">
+                                                                   
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                         </div>
+                                          </div>
+                                     </div>
+                                  
+                        <div class="row">
+                                <div class="col-md-12">
+                                     <div class="form-check">
+                                        <label>
+                                            <input id="chequi" type="checkbox" name="checkCtrlEqui" >
+                                            <span class="label-text"></span>Equipos/Elementos de Protección Personal
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="Equioptions" class="hidden">
+                               <div id="texto3" class="col-md-12">
+
+                               </div>
+                           <div id="ctrEpp">
+                              <div  class="dual-list1 list-left1 col-md-5 ">
+                                                            <div class="well text-right">
+                                                                <div class="row">
+                                                                    <div class="col-md-10">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon  fa-search " ></span>
+                                                                            <input type="text" name="SearchDualList" class="form-control" placeholder="Buscar" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="btn-group">
+                                                                            <a class="btn btn-default selector" title="Seleccionar Todo"><i class="glyphicon fa-square-o fa"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <ul id="controlesEpp" class="list-group">
+                                                                  
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="list-arrows col-md-1 text-center">
+                                                            <button type="button" class="btn btn-default btn-sm move-left">
+                                                                <span class="glyphicon fa-chevron-left fa"></span>
+                                                            </button>
+
+                                                            <button type="button" class="btn btn-default btn-sm move-right">
+                                                                <span class="glyphicon fa-chevron-right fa"></span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="dual-list1 list-right1 col-md-5">
+                                                            <div class="well">
+                                                                <div class="row">
+                                                                    <div class="col-md-2">
+                                                                        <div class="btn-group">
+                                                                            <a class="btn btn-default selector" title="Seleccionar Todo"><i class="glyphicon fa-square-o fa"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-10">
+                                                                        <div class="input-group">
+                                                                            <input type="text" name="SearchDualList" class="form-control" placeholder="Buscar" />
+                                                                            <span class="input-group-addon glyphicon  fa-search " style"display: table-cell;"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <ul id="controlesEppSeleccionados" class="list-group">
+                                                                   
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                         </div>
+                                           </div>
+                        </div>  
+                        
+                       
+                    <ul class="list-inline pull-left">
+                        <li ><button type="button" class="btn btn-default prev-step">Atrás</button></li>
+                        <li><button type="button" data-toggle="tooltip" 
+                        title="Guarda la información Permite agregar un nuevo Peligro a la Matriz" 
+                        class="btn btn-default " onclick="refresh()" >Guardar y Continuar</button></li>
+                       <li><button type="button" data-toggle="tooltip" 
+                       title="Guarda la información y Finaliza la Matriz" 
+                       class="btn btn-primary btn-info-full end"  onclick="addItemMatriz()">Guardar y Finalizar</button></li>
+                    </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                
+            </form>
+        </div>
+    </section>
+   
+   </div>
+
+
+</div>
+
+
+ <script src="../javascripts/matriz.js"></script>

@@ -1,6 +1,7 @@
 
 var mysql = require('mysql');
 var dateFormat = require('dateformat');
+var emp_id=0;
 module.exports ={
     evaluacionIni : function(req, res, next){
         var emp_id = req.params.emp_id;
@@ -279,8 +280,151 @@ module.exports ={
         });  
         });
     });
-    }
+    },
 
-    
+  crearMatriz : function(req, res, next){
+     emp_id = req.params.emp_id;
+    var user= req.user;
+    var tpPeligro = null;
+   
+    var config = require('.././database/config');
+    var db = mysql.createConnection(config);
+    db.connect();
+    db.query('SELECT * FROM empresa WHERE codigo = ? ',emp_id,  function(err, rows, fields){
+        if (err) throw err;
+        empresa=rows;
+    db.query('SELECT * FROM tipo_peligro ',  function(err, rows, fields){
+        if (err) throw err;
+        tpPeligro=rows;
+       
         
+        res.render('sgsst/matriz',{
+            isAuthenticated : req.isAuthenticated(),
+            user : user,
+            empresa: empresa,
+            tpPeligro: tpPeligro
+        });
+    });
+});
+  
+
+ 
+  },
+  cargarPeligro: function(req, res, next){
+    var TpPeligro = req.body.codigoTpPeligro;
+    console.log('cargar peligro');
+    var peligro = null;
+    var medIng= null;
+    var meAdmin = null;
+    var medEpp = null;
+    console.log(TpPeligro);
+    var config = require('.././database/config');
+    var db = mysql.createConnection(config);
+    db.connect();
+    db.query('SELECT * FROM peligro WHERE tipo_peligro = ?', TpPeligro, function(err, rows, filds){
+        peligro= rows;
+        if (err) throw err;
+        db.query(' SELECT * FROM medidas_intervencion where tipo=1 and tp_peligro= ?', TpPeligro, function(err, rows, filds){
+            medIng=rows; 
+            console.log(medIng);  
+        db.query(' SELECT * FROM medidas_intervencion where tipo=2 and tp_peligro= ?', TpPeligro, function(err, rows, filds){
+            medAdmin=rows;
+        db.query(' SELECT * FROM medidas_intervencion where tipo=3 and tp_peligro= ?', TpPeligro, function(err, rows, filds){
+            medEpp=rows;
+       
+        res.json({peligro,medIng,medAdmin,medEpp});
+    });
+    });
+    }); 
+    });
+  },
+
+
+  cargarProcesos: function(req, res, next){
+    console.log('cargar procesos');
+    console.log(emp_id);
+    var procesos = null;
+    var config = require('.././database/config');
+    var db = mysql.createConnection(config);
+    db.connect();
+    db.query('SELECT * FROM procesos WHERE codEmpr = ? AND estado="A"', emp_id, function(err, rows, filds){
+        procesos= rows;
+        if (err) throw err;
+        res.json(procesos);
+    
+    
+    });
+  },
+
+  guardarProceso : function (req, res, next) {
+      console.log('guardar proceso');
+      var newProcesonombre = req.body.newProcesoNombre;
+      var newProcesodes = req.body.newProcesoDesc;
+      var estado= 'A';
+      var proceso = {
+        codEmpr: emp_id,  
+        nombre: newProcesonombre,
+        descripcion: newProcesodes,
+        estado: estado
+    };
+
+    console.log(proceso);
+    var config = require('.././database/config');
+    var db = mysql.createConnection(config);
+        db.connect();
+        db.query('INSERT INTO procesos set ?', proceso, function(err, rows, filds){
+              if (err) throw err;
+              var success=true;
+              res.json(success);
+          });
+      
+      
+  },
+
+  modificarProceso : function (req, res, next) {
+    console.log('modificar proceso');
+    var editProcesoCodigo = req.body.codProceso;
+     var editProcesonombre = req.body.editProcesoNombre;
+     var editProcesodes = req.body.editProcesoDesc;
+     var estado= 'A';
+
+     var proceso = {
+      
+      codEmpr: emp_id,  
+      nombre: editProcesonombre,
+       descripcion: editProcesodes,
+       estado: estado
+   };
+
+   console.log(proceso);
+  var config = require('.././database/config');
+  var db = mysql.createConnection(config);
+      db.connect();
+      db.query('UPDATE procesos set ? WHERE codigo = ?', [proceso,editProcesoCodigo], function(err, rows, filds){
+            if (err) throw err;
+            var success=true;
+            res.json(success);
+        });
+    
+    
+},
+
+deshabilitarProceso : function (req, res, next) {
+    console.log('modificar proceso');
+    var editProcesoCodigo = req.body.codProceso;
+     var estado= 'I';
+    var config = require('.././database/config');
+    var db = mysql.createConnection(config);
+        db.connect();
+        db.query('UPDATE procesos set estado= ? WHERE codigo = ?', [estado,editProcesoCodigo], function(err, rows, filds){
+                if (err) throw err;
+                var success=true;
+                res.json(success);
+            });
+        
+    
+},   
+   
+  
+      
 }
