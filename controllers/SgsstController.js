@@ -234,7 +234,6 @@ module.exports = {
         db.query('SELECT * FROM empresa WHERE codigo = ? ', emp_id, function (err, rows, fields) {
             if (err) throw err;
             empresa = rows;
-            console.log(empresa);
             db.query('SELECT * FROM plan_mejoramiento_empr  WHERE codEvalEmp = ? ', codEvalEmp, function (err, rows, fields) {
                 if (err) throw err;
 
@@ -258,9 +257,13 @@ module.exports = {
         console.log(codEvalEmp);
         var user = req.user;
         var categoria1 = null;
+        var empresa = null;
         var config = require('.././database/config');
         var db = mysql.createConnection(config);
         db.connect();
+        db.query('SELECT * FROM empresa WHERE codigo = ? ', emp_id, function (err, rows, fields) {
+            if (err) throw err;
+            empresa = rows;
         db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=1  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ', codEvalEmp, function (err, rows, fields) {
             if (err) throw err;
 
@@ -285,11 +288,13 @@ module.exports = {
                             categoria1: categoria1,
                             categoria2: categoria2,
                             categoria3: categoria3,
-                            categoria4: categoria4
+                            categoria4: categoria4,
+                            empresa: empresa
                         });
                     });
                 });
             });
+        });
         });
     },
 
@@ -522,6 +527,7 @@ module.exports = {
         var codEvalEmp = req.params.codEvalEmp;
         var empresa = null;
         var detalles = null;
+        var totalEval = null;
         var config = require('.././database/config');
         var db = mysql.createConnection(config);
         db.connect();
@@ -531,13 +537,20 @@ module.exports = {
             db.query('SELECT eval_empr_resp.codigo, codPregunta, eval_empr.codEmpr empr_id, categoria.nombre categoria, subcategoria.nombre subcategoria, Preg_eval_ini.descripcion descripcion, Preg_eval_ini.puntaje puntajeEsperado, eval_empr_resp.puntaje puntajeObtenido, CASE WHEN eval_empr_resp.estado  = "T" THEN "TOTALMENTE" WHEN eval_empr_resp.estado = "J" THEN "JUSTIFICA" WHEN eval_empr_resp.estado = "NJ" THEN "NO JUSTIFICA" ELSE "NO CUMPLE" END AS estado FROM eval_empr_resp INNER JOIN eval_empr ON (eval_empr_resp.codEvalEmp = eval_empr.codigo) INNER JOIN Preg_eval_ini ON (eval_empr_resp.codPregunta = Preg_eval_ini.codigo ) INNER JOIN categoria ON (categoria.codigo = Preg_eval_ini.categoria) INNER JOIN subcategoria ON (subcategoria.codigo = Preg_eval_ini.subcategoria)  WHERE eval_empr.codigo = ? ', codEvalEmp, function (err, rows, fields) {
                 if (err) throw err;
                 detalles = rows;
+          db.query('SELECT  sum(pe.puntaje) esperado,sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where  pe.codigo=e.codPregunta and e.codEvalEmp=  ? ', codEvalEmp, function (err, rows, fields) {
+                    if (err) throw err;
+                    totalEval = rows;  
+                    console.log(totalEval);
+ 
                 res.render('sgsst/detalleEval', {
                     isAuthenticated: req.isAuthenticated(),
                     user: user,
                     empresa: empresa,
-                    detalles: detalles
+                    detalles: detalles,
+                    totalEval : totalEval
                 });
             });
+        });
         });
 
 

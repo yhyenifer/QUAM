@@ -1,8 +1,10 @@
 <% include  .././template/nav.ejs%>
- <h4 class="centro"><b>Estadisticas </b> </h4><br>
+ <h4 class="centro"><b>Estadisticas de la Evaluación Inicial de la Empresa:  </b><%= empresa[0].nombre %> </h4><br>
   <h4 class="centro"><b>(la idea es graficar, esta pendiente  hacerlas) </b> </h4><br>
 
   <div class="container">
+  <a class="btn icon-btn btn-primary" href="/evaluacionesIniciales/ <%= empresa[0].codigo %>"><span class="glyphicon btn-glyphicon fa-arrow-left
+  fa img-circle text-primary"></span>Volver</a>
     <div class="row ">
     <table class="table table-striped custab">
     <thead>
