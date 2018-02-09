@@ -1,7 +1,7 @@
 <% include  .././template/nav.ejs%>
 				<p class="hidden" id="url"><%=suite.url%> </p>
 
- <h4 class="centro"><b>Evaluaciones Iniciales de la empresa :</b> <%= empresa[0].nombre %></h4><br>
+ <h4 class="centro"><b>Evaluaciones Iniciales de la Empresa: </b> <%= empresa[0].nombre %></h4><br>
 
 <div class="container">
     <div class="row ">
@@ -21,7 +21,14 @@
                 <td>Evaluacion Inicial<span id="codEval" class="hidden"><%=evaluacion.codigo%></span></td>
                 <td><%=evaluacion.puntaje%> %</td>
                 <td><%=evaluacion.fechaCreacion%></td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon fa-edit fa"></span> Editar</a> <a href="<%= suite.url%>/verPlan/<%=evaluacion.codigo%>" id="verPlan" class="btn btn-success btn-xs"><span class="glyphicon fa-check-square-o fa"></span> Ver Plan</a> <a id="verEstadisticas" href="<%= suite.url%>/estadisticas/<%=evaluacion.codigo%>" class="btn btn-warning btn-xs"><span class="glyphicon fa-bar-chart fa"></span> Ver Estadisticas</a></td>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon fa-edit fa">
+                </span> Editar</a> <a href="<%= suite.url%>/verPlan/<%=evaluacion.codigo%>" id="verPlan"
+                 class="btn btn-success btn-xs"><span class="glyphicon fa-check-square-o fa"></span> Ver Plan</a>
+                  <a id="verEstadisticas" href="<%= suite.url%>/estadisticas/<%=evaluacion.codigo%>" 
+                  class="btn btn-warning btn-xs"><span class="glyphicon fa-bar-chart fa"></span> Ver Estadisticas</a>
+                  <a id="verDetalle" href="<%= suite.url%>/detalleEval/<%=evaluacion.codigo%>" 
+                  class="btn btn-primary btn-xs"><span class="glyphicon fa-eye fa"></span> Ver Detalle</a>
+                  </td>
             </tr>
            <% }); %>  
     </table>

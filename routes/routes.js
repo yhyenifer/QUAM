@@ -23,7 +23,8 @@ router.post('/', passport.authenticate('local', {
 router.get('/auth/logout', controllers.UserController.logout);
 
 
-//sgsst
+//--------------------------SGSST-----------------------------------------------------------------
+// EVALUACION INICIAL
 router.get('/evaluacionInicial/:emp_id',AuthMiddleware.isLogged, controllers.SgsstController.evaluacionIni);
 router.post('/crearEval',AuthMiddleware.isLogged, controllers.SgsstController.crearEvaluacion);
 router.post('/crearRespuestas',AuthMiddleware.isLogged, controllers.SgsstController.crearRespuestas);
@@ -31,12 +32,18 @@ router.get('/evaluacionesIniciales/:emp_id',AuthMiddleware.isLogged, controllers
 router.post('/generarPlan',AuthMiddleware.isLogged, controllers.SgsstController.generarPlan);
 router.get('/verPlan/:codEvalEmp',AuthMiddleware.isLogged, controllers.SgsstController.verPlan);
 router.get('/estadisticas/:codEvalEmp',AuthMiddleware.isLogged, controllers.SgsstController.estadisticas);
+router.get('/detalleEval/:codEvalEmp',AuthMiddleware.isLogged, controllers.SgsstController.detalleEvalIni);
+
+// MATRIZ DE PELIGROS
 router.get('/matriz/:emp_id',AuthMiddleware.isLogged, controllers.SgsstController.crearMatriz);
 router.post('/cargarPel',AuthMiddleware.isLogged, controllers.SgsstController.cargarPeligro);
 router.post('/procesos',AuthMiddleware.isLogged, controllers.SgsstController.cargarProcesos);
 router.post('/guardarProceso',AuthMiddleware.isLogged, controllers.SgsstController.guardarProceso);
 router.post('/modificarProceso',AuthMiddleware.isLogged, controllers.SgsstController.modificarProceso);
 router.post('/deshabilitarProceso',AuthMiddleware.isLogged, controllers.SgsstController.deshabilitarProceso);
+router.post('/guardarMatriz',AuthMiddleware.isLogged, controllers.SgsstController.guardarMatriz);
+router.post('/guardarMatrizItem',AuthMiddleware.isLogged, controllers.SgsstController.guardarMatrizItem);
+
 
 
 

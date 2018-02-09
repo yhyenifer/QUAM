@@ -1,0 +1,41 @@
+<% include  .././template/nav.ejs%>
+ <h4 class="centro"><b>Evaluación Inicial Detalle de la Empresa:  </b> <%= empresa[0].nombre %></h4><br>
+
+ <div class="container">
+        <a class="btn icon-btn btn-primary" href="/evaluacionesIniciales/ <%= empresa[0].codigo %>"><span class="glyphicon btn-glyphicon fa-arrow-left
+            fa img-circle text-primary"></span>Volver</a>
+
+ <div class="row ">
+
+        <table class="table table-striped custab">
+                <thead>
+              <!--  <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
+                    <tr>
+                        
+                        <th class="arriba">Ciclo</th>
+                        <th class="arriba">Estándar</th>
+                        <th class="arriba">Ítem del Estándar</th>
+                        <th class="arriba">Puntaje Esperado</th>
+                        <th class="arriba">Puntaje Obtenido</th>
+                        <th class="arriba">Respuesta</th>
+                        <!-- <th class="text-center class="arriba"">Acciones</th> -->
+                    </tr>
+                </thead>
+               <% detalles.forEach(function(detalle) { %>
+              
+                        <tr>
+                           
+                            <td><%=detalle.categoria%> </td>
+                            <td><%=detalle.subcategoria%> </td>
+                            <td><%=detalle.descripcion%> </td>
+                            <td><%=detalle.puntajeEsperado%> </td>
+                            <td><%=detalle.puntajeObtenido%> </td>
+                            <td><%=detalle.estado%> </td>
+    
+                        </tr>
+                       <% }); %>  
+                </table>
+
+
+ </div>
+ <!-- <script src="../javascripts/verde.js"></script> -->
