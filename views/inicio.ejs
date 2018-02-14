@@ -46,7 +46,7 @@
    
     <!-- contacts card -->
     <div class="card card-default" id="card_contacts" style="    margin-top: 35px;">
-        <div id="contacts" class="panel-collapse collapse show" aria-expanded="true" style="">
+        <div id="contacts" class="panel-collapse collapse show" aria-expanded="true" >
             <ul class="list-group ">
                 <li class="list-group-item eval" >
                    
@@ -64,29 +64,31 @@
                     </div>
                     
                 </li>
-                <li class="list-group-item">
-                    <div class="row w-100">
-                        <div class="col-12 col-sm-6 col-md-3 px-0">
-                            <img src="/images/requisitos/2.png" alt="" class="req img-fluid rounded-circle d-block mx-auto">
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 text-center text-sm-left">
-                            <label class="name lead">Matriz de Peligros</label>
-                            <a  id="hacerMatriz" class="itemAct"> Hacer Matriz</a>
-                        </div>
-                    </div>
-                </li>
+             
                 <li class="list-group-item">
                     <div class="row w-100">
                         <div class="col-12 col-sm-6 col-md-3 px-0">
                             <img src="/images/requisitos/3.png" alt="" class="req img-fluid rounded-circle d-block mx-auto">
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 text-center text-sm-left">
-                            <label class="name lead">Plan de Mejoramiento</label>
+                            <label class="name lead">Plan de Mejoramiento</label><br>
                              <a  id="verEval1" class="itemAct"> Ver Plan de Mejoramiento</a>
                          
                         </div>
                     </div>
                 </li>
+                <li class="list-group-item">
+                <div class="row w-100">
+                    <div class="col-12 col-sm-6 col-md-3 px-0">
+                        <img src="/images/requisitos/2.png" alt="" class="req img-fluid rounded-circle d-block mx-auto">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 text-center text-sm-left">
+                        <label class="name lead">Matriz de Peligros</label>
+                        <a  id="hacerMatriz" class="itemAct"> Hacer Matriz</a><br>
+                        <a  id="verMatriz" class="itemAct"> Ver Matriz</a>
+                    </div>
+                </div>
+            </li>
                
             </ul>
             <!--/contacts list-->
@@ -95,6 +97,8 @@
 </div>
     </div>
 </div>
+<% include  ./template/footer.ejs%> 
 
+ <script src="../javascripts/home.js"></script>
 
            

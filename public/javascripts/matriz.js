@@ -1,6 +1,5 @@
 $(function () {
 
-
     //lista de epps
     $('.list-arrows button').click(function () {
         var $button = $(this), actives = '';
@@ -114,8 +113,9 @@ $(function () {
 
 var codEmpr = 0;
 $(document).ready(function () {
+  ;
 
-  
+
 
     //Initialize tooltips
     $('.nav-tabs > li a[title]').tooltip();
@@ -219,13 +219,17 @@ $(document).ready(function () {
 
     //cargar el proceso que se selecciono para continuar
     setTimeout(function () {
+
         if (cargar) {
             var pro = sessionStorage.getItem("proceso");
-            if (pro==''){
-                $('#proceso').val('Seleccione...');
-            }
+            console.log(pro);
+
+            if ( (pro=='')||(pro == 'null') ) {
+                console.log('carga por defecto')
+            }else{
 
             $('#proceso').val(pro);
+        }
         }
     }, 1000);
 
@@ -322,7 +326,7 @@ function cargarPeligro(id) {
                 $('#ctrIng').removeClass('hidden');
                 $('#texto1').html("<span>Seleccione las medidas de intervención de una lista y las pasa a la lista del frente</span>")
 
-                console.log(json.medIng.length);
+               // console.log(json.medIng.length);
                 for (var i = 0; i < json.medIng.length; i++) {
                     // console.log(json.medIng[i].nombre);
                     medInge['nombre'][i] = json.medIng[i].nombre;
@@ -347,7 +351,7 @@ function cargarPeligro(id) {
                 $('#ctrAdm').removeClass('hidden');
                 $('#texto2').html("<span>Seleccione las medidas de intervención de una lista y las pasa a la lista del frente</span>")
 
-                console.log(json.medAdmin.length);
+              //  console.log(json.medAdmin.length);
                 for (var i = 0; i < json.medAdmin.length; i++) {
                     // console.log(json.medIng[i].nombre);
                     medAdmini['nombre'][i] = json.medAdmin[i].nombre;
@@ -372,7 +376,7 @@ function cargarPeligro(id) {
                 $('#ctrEpp').removeClass('hidden');
                 $('#texto3').html("<span>Seleccione las medidas de intervención de una lista y las pasa a la lista del frente</span>")
 
-                console.log(json.medEpp.length);
+             //   console.log(json.medEpp.length);
                 for (var i = 0; i < json.medEpp.length; i++) {
                     // console.log(json.medIng[i].nombre);
                     medEpps['nombre'][i] = json.medEpp[i].nombre;
@@ -415,28 +419,28 @@ var exposicion = 0;
 var consecuencia = 0;
 var probabilidad = 0;
 function datoDeficiencia(defi) {
-    console.log('defi');
+ //   console.log('defi');
     deficiencia = defi;
-    console.log('def ' + deficiencia);
-    console.log('expo ' + exposicion);
+   // console.log('def ' + deficiencia);
+    //console.log('expo ' + exposicion);
 
     calcularProbabilidad(deficiencia, exposicion);
 
 }
 function datoExposicion(exposi) {
-    console.log('expos');
+   // console.log('expos');
     exposicion = exposi;
-    console.log('def ' + deficiencia);
-    console.log('expo ' + exposicion);
+   // console.log('def ' + deficiencia);
+   // console.log('expo ' + exposicion);
 
     calcularProbabilidad(deficiencia, exposicion);
 
 }
 
 function datoConsecuencia(conse) {
-    console.log('expos');
+   // console.log('expos');
     consecuencia = parseInt(conse);
-    console.log(consecuencia);
+   // console.log(consecuencia);
     calcularRiesgo(consecuencia, probabilidad);
 }
 
@@ -458,8 +462,8 @@ function calcularProbabilidad(deficiencia, exposicion) {
 
 function calcularRiesgo(conse, probabi) {
     console.log('calcularRiesgo');
-    console.log(conse);
-    console.log(probabi);
+ //   console.log(conse);
+  //  console.log(probabi);
 
     var riesgo = conse * probabi;
     console.log(riesgo);
@@ -476,7 +480,7 @@ function calcularRiesgo(conse, probabi) {
 function interpretarProbabilidad(probabilidad) {
     console.log('interpretar pro');
     var nivelProbabilidad = parseInt(probabilidad);
-    console.log(nivelProbabilidad);
+   // console.log(nivelProbabilidad);
 
     if ((nivelProbabilidad >= 24) && (nivelProbabilidad <= 40)) {
         $("#interpreProbabilidad").val('Muy Alto');
@@ -499,7 +503,7 @@ function interpretarProbabilidad(probabilidad) {
 function interpretarRiesgo(valorRiesgo) {
     console.log('interpretar riesgo');
     var nivelRiesgo = parseInt(valorRiesgo);
-    console.log(nivelRiesgo);
+   // console.log(nivelRiesgo);
     if ((nivelRiesgo >= 600) && (nivelRiesgo <= 4000)) {
         $("#interpreRiesgo").val('I');
         $("#interpreRiesgo").css('background-color', '#f77373');
@@ -529,7 +533,7 @@ function aceptabilidad() {
     var aceptabilidad = $("#interpreRiesgo").val();
     console.log('aceptabilidad');
 
-    console.log(aceptabilidad);
+    //console.log(aceptabilidad);
 
     if (aceptabilidad == 'I') {
         $("#aceptabilidad").val('No Aceptable.');
@@ -545,14 +549,7 @@ function aceptabilidad() {
     }
 }
 
-//guardar y continuar
-function refresh() {
-    var proceso = $('#proceso').val();
-    //guardamos en el almacenamiento del navegador
-    sessionStorage.setItem("proceso", proceso);
-    location.reload(true);
 
-}
 //guardar proceso
 function addProceso() {
     console.log('guardar proceso');
@@ -562,7 +559,7 @@ function addProceso() {
 
     newProcesoNombre = $('#nombreProceso').val();
     newProcesoDesc = $('#descProceso').val();
-    console.log(newProcesoNombre + ' ' + newProcesoDesc);
+   // console.log(newProcesoNombre + ' ' + newProcesoDesc);
     $.ajax({
         url: url + '/guardarProceso',
         method: 'post',
@@ -606,7 +603,7 @@ function modificarProceso() {
     editProcesoNombre = $('#nombreProceso').val();
     editProcesoDesc = $('#descProceso').val();
 
-    console.log(codProceso + ' ' + editProcesoNombre + ' ' + editProcesoDesc);
+  //  console.log(codProceso + ' ' + editProcesoNombre + ' ' + editProcesoDesc);
     $.ajax({
         url: url + '/modificarProceso',
         method: 'post',
@@ -654,65 +651,164 @@ function deshabilitarProceso(idProceso) {
 }
 
 
-var ctrlIng = { 
-    'codigo': [],
-    'nombre': [] };
-var ctrlAdmin =  { 
-    'codigo': [],
-    'nombre': []};
-var ctrlEpp = { 
-    'codigo': [],
-    'nombre': []};
-function datosListas(){
+var ctrlIng = {
+    'codItemMatriz': [],
+    'tipo': [],
+    'codMedida': [],
+    'medida': [],
+    'estado':[]
+};
+var ctrlAdmin = {
+    'codItemMatriz': [],
+    'tipo': [],
+    'codMedida': [],
+    'medida': [],
+    'estado':[]
+};
+var ctrlEpp = {
+    'codItemMatriz': [],
+    'tipo': [],
+    'codMedida': [],
+    'medida': [],
+    'estado':[]
+};
+function datosListas(codMatrizItem) {
+    console.log('recorrer las listas');
+   
+    ctrlIng = {
+        'codItemMatriz': [],
+        'tipo': [],
+        'codMedida': [],
+        'medida': [],
+        'estado':[]
+    };
+    ctrlAdmin = {
+        'codItemMatriz': [],
+        'tipo': [],
+        'codMedida': [],
+        'medida': [],
+        'estado':[]
+    };
+    ctrlEpp = {
+        'codItemMatriz': [],
+        'tipo': [],
+        'codMedida': [],
+        'medida': [],
+        'estado':[]
+    };
+    $("#controlesIngSeleccionados li").each(function () {
+      var   i = 0;
+        if ($(this).text() == '') { 
 
- $("#controlesIngSeleccionados li").each(function(){
-     if ($(this).text()==''){
-      //  console.log($("#controlesIngSeleccionados li input").val());
-      //  console.log($("#controlesIngSeleccionados li ")[0].id);
-        ctrlIng['codigo']= 0;
-        ctrlIng['nombre']= $("#controlesIngSeleccionados li input").val();
-        
-     }else{
-   // console.log($(this).text());
-   // console.log($(this)[0].id);
-    ctrlIng['codigo']= $(this)[0].id;
-    ctrlIng['nombre']= $(this).text();
-     }
-});
+            //console.log('otro');
 
-$("#controlesAdminSeleccionados li").each(function(){
-    if ($(this).text()==''){
-     //  console.log($("#controlesIngSeleccionados li input").val());
-     //  console.log($("#controlesIngSeleccionados li ")[0].id);
-       ctrlAdmin['codigo']= 0;
-       ctrlAdmin['nombre']= $("#controlesAdminSeleccionados li input").val();
-       
-    }else{
-  // console.log($(this).text());
-  // console.log($(this)[0].id);
-   ctrlAdmin['codigo']= $(this)[0].id;
-   ctrlAdmin['nombre']= $(this).text();
-    }
-});
+            //  console.log($("#controlesIngSeleccionados li input").val());
+            //  console.log($("#controlesIngSeleccionados li ")[0].id);
+            ctrlIng['codItemMatriz'][i] = codMatrizItem;
+            ctrlIng['tipo'][i] = 1;
+            ctrlIng['codMedida'][i] = 0;
+            ctrlIng['medida'][i] = $("#controlesIngSeleccionados li input").val();
+            ctrlIng['estado'][i] = 'A';
+            i++
 
-$("#controlesEppSeleccionados li").each(function(){
-    if ($(this).text()==''){
-     //  console.log($("#controlesIngSeleccionados li input").val());
-     //  console.log($("#controlesIngSeleccionados li ")[0].id);
-       ctrlEpp['codigo']= 0;
-       ctrlEpp['nombre']= $("#controlesEppSeleccionados li input").val();
-       
-    }else{
-  // console.log($(this).text());
-  // console.log($(this)[0].id);
-    ctrlEpp['codigo']= $(this)[0].id;
-    ctrlEpp['nombre']= $(this).text();
-    }
-});
+        } else {
+          //  console.log(' no otro');
+            // console.log($(this).text());
+            // console.log($(this)[0].id);
+            ctrlIng['codItemMatriz'][i] = codMatrizItem;
+            ctrlIng['tipo'][i] = 1;
+            ctrlIng['codMedida'][i] = $(this)[0].id;
+            ctrlIng['medida'][i] = $(this).text();
+            ctrlIng['estado'][i] = 'A';
+            i++;
+            //   console.log( ctrlIng['nombre'][i]);
+
+        }
+    });
+
+
+    $("#controlesAdminSeleccionados li").each(function () {
+       var i = 0;
+        if ($(this).text() == '') {
+            //  console.log($("#controlesIngSeleccionados li input").val());
+            //  console.log($("#controlesIngSeleccionados li ")[0].id);
+            ctrlAdmin['codItemMatriz'][i] = codMatrizItem;
+            ctrlAdmin['tipo'][i] = 2;
+            ctrlAdmin['codMedida'][i] = 0;
+            ctrlAdmin['medida'][i] = $("#controlesAdminSeleccionados li input").val();
+            ctrlAdmin['estado'][i] = 'A';
+            i++;
+
+        } else {
+            // console.log($(this).text());
+            // console.log($(this)[0].id);
+            ctrlAdmin['codItemMatriz'][i] = codMatrizItem;
+            ctrlAdmin['tipo'][i] = 2;
+            ctrlAdmin['codMedida'][i] = $(this)[0].id;
+            ctrlAdmin['medida'][i] = $(this).text();
+            ctrlAdmin['estado'][i] = 'A';
+            i++;
+        }
+    });
+
+    $("#controlesEppSeleccionados li").each(function () {
+        var  i = 0;
+        if ($(this).text() == '') {
+             console.log($("#controlesIngSeleccionados li input").val());
+            //  console.log($("#controlesIngSeleccionados li ")[0].id);
+            ctrlEpp['codItemMatriz'][i] = codMatrizItem;
+            ctrlEpp['tipo'][i] = 3;
+            ctrlEpp['codMedida'][i] = 0;
+            ctrlEpp['medida'][i] = $("#controlesEppSeleccionados li input").val();
+            ctrlEpp['estado'][i] = 'A';
+            i++;
+
+        } else {
+            // console.log($(this).text());
+            // console.log($(this)[0].id);
+            ctrlEpp['codItemMatriz'][i] = codMatrizItem;
+            ctrlEpp['tipo'][i] = 3;
+            ctrlEpp['codMedida'][i] = $(this)[0].id;
+            ctrlEpp['medida'][i] = $(this).text();
+            ctrlEpp['estado'][i] = 'A';
+            i++;
+        }
+    });
 }
 
-function addItemMatriz() {
 
+//guardar y salir
+function addFinish() {
+    addMatrizEmpr();
+    var url = $('#url').val();
+
+    console.log('guardar matriz y salir');
+   
+   console.log(codEmpr);
+    $('#time').modal('show'); 
+    setInterval(function(){
+      location.assign(url + "/detalleMatriz/" + codEmpr);
+
+    }, 3000);
+
+    
+}
+//guardar y continuar
+function refresh() {
+    console.log('refresh');
+    addMatrizEmpr();
+    var proceso = $('#proceso').val();
+    $('#time').modal('show'); 
+    sessionStorage.setItem("proceso", proceso);
+    setInterval(function(){
+        location.reload(true);
+    }, 3000);
+
+}
+
+
+
+function addMatrizEmpr() {
     var url = $('#url').val();
 
 
@@ -726,70 +822,110 @@ function addItemMatriz() {
             matrizCreada = $('#matrizCreada').val();
 
             if (matrizCreada == 'true') {
-                var codMatriz = $('#idMatriz').val();
-                //seccion 1
-                var zona = $('#zona').val();
-                var codProceso = $('#proceso').val();
-                var actividad = $('#actividad').val();
-                var tarea = $('#tarea').val();
-                var zona = $('#zona').val();
-                var rutinaria = $('#valRutinaria').val();
-                var tpPeligro = $('#tppeligro').val();
-                var peligro = $('#peligro').val();
-                var peorConse = $('#peorConse').val();
-                var efectos = $('#posiblesEfectos').val();
-                //seccion 2
-                var fuente = $('#fuente').val();
-                var medio = $('#medio').val();
-                var individuo = $('#individuo').val();
-                //seccion 3
-                var deficiencia = $('#deficiencia').val();
-                var exposicion = $('#exposicion').val();
-                var probabilidad = $('#nivProbabilidad').val();
-                var consecuencia = $('#consecuencia').val();
-                var expuestos = $('#numExpuestos').val();
-                var riesgo = $('#nivRiesgo').val();
-                var interProba = $('#interpreProbabilidad').val();
-                var interRiesgo = $('#interpreRiesgo').val();
-                var aceptable = $('#aceptabilidad').val();
-                var legal = $('#valreqLegal').val();
-                //seccion 4
-                var eliminacion = $('#valEliminacion').val();
-                var sustitucion = $('#valSustitucion').val();
-
-
-                $.ajax({
-                    url: url + '/guardarMatrizItem',
-                    method: 'post',
-                    data: {
-                        codMatriz, codProceso, actividad, tarea, zona, rutinaria, tpPeligro, peligro, peorConse, efectos,
-                        fuente, medio, individuo, deficiencia, exposicion, probabilidad,
-                        consecuencia, expuestos, riesgo, interProba, interRiesgo, aceptable, legal, eliminacion, sustitucion
-                    },
-                    success: function (json) {
-// guardar las medidas de intervencion
-                        if (json.creadaMatrizItem == 'true') {
-                            datosListas();
-                            console.log(ctrlIng.length);
-                            console.log(ctrlAdmin.length);
-                            console.log(ctrlEpp.length);
-                            var codItemMatriz =   json.idEmpMatrizItem;
-                            $.ajax({
-                                url: url + '/guardarMedidasInter',
-                                method: 'post',
-                                data: {
-                                    codItemMatriz,
-                                },
-                                success: function (json) {
-                                }
-                            });    
-                        }
-                    }
-                });
+                addItemMariz();
+               
             } // fin del if
         }
     });
 
 
 
+}
+
+
+function addItemMariz() {
+    var url = $('#url').val();
+
+    var codMatriz = $('#idMatriz').val();
+    //seccion 1
+    var zona = $('#zona').val();
+    var codProceso = $('#proceso').val();
+    var actividad = $('#actividad').val();
+    var tarea = $('#tarea').val();
+    var zona = $('#zona').val();
+    var rutinaria = $('#valRutinaria').val();
+    var tpPeligro = $('#tppeligro').val();
+    var peligro = $('#peligro').val();
+    var peorConse = $('#peorConse').val();
+    var efectos = $('#posiblesEfectos').val();
+    //seccion 2
+    if ($('#fuente').val()== ''){
+        var fuente = 'Ninguno';
+    }else{
+        var fuente = $('#fuente').val();
+
+    }
+    if ($('#medio').val()== ''){
+        var medio = 'Ninguno';
+    }else{
+        var medio = $('#medio').val();
+
+    }
+    if ($('#individuo').val()== ''){
+        var individuo = 'Ninguno';
+    }else{
+        var individuo = $('#individuo').val();
+
+    }
+    //seccion 3
+    var deficiencia = $('#deficiencia').val();
+    var exposicion = $('#exposicion').val();
+    var probabilidad = $('#nivProbabilidad').val();
+    var consecuencia = $('#consecuencia').val();
+    var expuestos = $('#numExpuestos').val();
+    var riesgo = $('#nivRiesgo').val();
+    var interProba = $('#interpreProbabilidad').val();
+    var interRiesgo = $('#interpreRiesgo').val();
+    var aceptable = $('#aceptabilidad').val();
+    var legal = $('#valreqLegal').val();
+    //seccion 4
+    var eliminacion = $('#valEliminacion').val();
+    var sustitucion = $('#valSustitucion').val();
+
+
+    $.ajax({
+        url: url + '/guardarMatrizItem',
+        method: 'post',
+        data: {
+            codMatriz, codProceso, actividad, tarea, zona, rutinaria, tpPeligro, peligro, peorConse, efectos,
+            fuente, medio, individuo, deficiencia, exposicion, probabilidad,
+            consecuencia, expuestos, riesgo, interProba, interRiesgo, aceptable, legal, eliminacion, sustitucion
+        },
+        success: function (json) {
+            // guardar las medidas de intervencion
+            console.log(json.creadaMatrizItem);
+            
+            if (json.creadaMatrizItem == true) {
+                console.log('crear medidas');
+                var codItemMatriz = json.idEmpMatrizItem;
+                codEmpr = parseInt(json.emp_id);
+                console.log(codItemMatriz);
+                datosListas(codItemMatriz);
+               
+                if (ctrlIng['medida'].length != 0) {
+                    var cIng = JSON.stringify(ctrlIng);
+                }
+                if (ctrlAdmin['medida'].length != 0) {
+                    var cAdmin = JSON.stringify(ctrlAdmin);
+                    console.log(cAdmin);
+                }
+                console.log('epp');
+                console.log(ctrlEpp['medida'].length);
+                if (ctrlEpp['medida'].length != 0) {
+                    var cEpp = JSON.stringify(ctrlEpp);
+                }
+                $.ajax({
+                    url: url + '/guardarMedidasInter',
+                    method: 'post',
+                    data: {
+                         cIng, cAdmin, cEpp
+                    },
+                    success: function (json) {
+                    }
+                });
+               
+            }
+        }
+    });
+    
 }

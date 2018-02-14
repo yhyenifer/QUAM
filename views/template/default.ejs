@@ -15,14 +15,41 @@
         
     </head>
     <body ng-controller="homeCtrl">
-	
-	
-        
+    
+    
+
+	   <!-- modal para el gif de espere...-->
+       <div class="modal " id="time" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+       <div class="modal-dialog">
+           <div class="modal-content" style="margin-top:4em">
+            
+               <div class="modal-body" style="margin-top:2em">
+                   <div class="text-center">
+                       <h3><b> Espere un momento...</b></h3>
+                       <br>
+                       <br>
+                           <img id="lg" src="/images/q.gif">
+                       <br>    
+                       <br>
+                   </div>
+                
+
+               </div>
+             
+           </div>
+       </div>
+   </div>
+  
+
     </body>
+
      
      <script src="../javascripts/jquery.min.js"></script>
      <script src="../javascripts/main.js"></script>
      <script src="../javascripts/bootstrap.min.js"></script>
+     <!-- pdf -->
+     <script src='../build/pdfmake.min.js'></script>
+     <script src='../build/vfs_fonts.js'></script>
    
     
 

@@ -9,6 +9,7 @@ var session = require('express-session');
 var routes = require('./routes/routes');
 var passport = require('passport');
 
+
 require('./passport/passport')(passport);
 global.suite= require('./suite');
 

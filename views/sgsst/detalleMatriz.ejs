@@ -1,0 +1,96 @@
+<% include  .././template/nav.ejs%>
+ <h4 class="centro"><b>Matriz de Peligros de la Empresa:  </b> <%= empresa[0].nombre %></h4><br>
+ <div class="container">
+        <a class="btn icon-btn btn-primary" href="/matriz/ <%= empresa[0].codigo %>"><span class="glyphicon btn-glyphicon fa-plus
+            fa img-circle text-primary"></span>Agregar Item</a>
+            <a id="imprimir" class="btn icon-btn btn-primary" ><span class="glyphicon btn-glyphicon fa-print
+            fa img-circle text-primary"></span>Imprimir</a>
+         
+
+ <div class="row " style="    overflow-x: scroll;">
+
+    <table id="detalleMatriz" class="table table-striped custab">
+        <thead>
+      <!--  <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
+            <tr>
+                
+                <th id="codMatriz" class=" hidden">id</th>
+                <th class="arriba">Fecha de Creación</th>
+                <th class="arriba">Proceso</th>
+                <th class="arriba">Zona</th>
+                <th class="arriba">Actividad</th>
+                <th class="arriba">Tarea</th>
+                <th class="arriba">¿Rutinaria?</th>
+                <th class="arriba">Peligro</th>
+                <th class="arriba">Tipo de Peligro</th>
+                <th class="arriba">Efectos</th>
+                <th class="arriba">Fuente</th>
+                <th class="arriba">Medio</th>
+                <th class="arriba">Individuo</th>
+                <th class="arriba">Deficiencia</th>
+                <th class="arriba">Exposición</th>
+                <th class="arriba">N. Probabilidad</th>
+                <th class="arriba">Int. Probabilidad</th>
+                <th class="arriba">N. Consecuencia</th>
+                <th class="arriba">N. Riesgo</th>
+                <th class="arriba">Int. Riesgo</th>
+                <th class="arriba">Aceptabilidad</th>
+                <th class="arriba">Expuestos</th>
+                <th class="arriba">Peor Conse.</th>
+                <th class="arriba">¿Req. Legal?</th>
+                <th class="arriba">Eliminación</th>
+                <th class="arriba">Sustitución</th>
+                <th class="arriba">Ctrl. Ing</th>
+                <th class="arriba">Ctrl. Admin</th>
+                <th class="arriba">Ctrl. EPP</th>
+                <th class="text-center class="arriba"">Acciones</th>
+            </tr>
+        
+        </thead>
+        <tbody>
+            <% detalleMatriz.forEach(function(dtm) { %>
+
+                <tr>
+                           
+                    <td class="hidden"><%=dtm.codMatriz%> </td>
+                    <td><%=dtm.fechaCreacion%> </td>
+                    <td><%=dtm.proceso%> </td>
+                    <td><%=dtm.zona%> </td>
+                    <td><%=dtm.actividad%> </td>
+                    <td><%=dtm.tarea%> </td>
+                    <td><%=dtm.rutinaria%> </td>
+                    <td><%=dtm.peligro%> </td>
+                    <td><%=dtm.tppeligro%> </td>
+                    <td><%=dtm.efectos%> </td>
+                    <td><%=dtm.fuente%> </td>
+                    <td><%=dtm.medio%> </td>
+                    <td><%=dtm.individuo%> </td>
+                    <td><%=dtm.deficiencia%> </td>
+                    <td><%=dtm.exposicion%> </td>
+                    <td><%=dtm.probabilidad%> </td>
+                    <td><%=dtm.interProba%> </td>
+                    <td><%=dtm.consecuencia%> </td>
+                    <td><%=dtm.riesgo%> </td>
+                    <td><%=dtm.interRiesgo%> </td>
+                    <td><%=dtm.aceptable%> </td>
+                    <td><%=dtm.expuestos%> </td>
+                    <td><%=dtm.peorConse%> </td>
+                    <td><%=dtm.legal%> </td>
+                    <td><%=dtm.eliminacion%> </td>
+                    <td><%=dtm.sustitucion%> </td>
+                    <td><%=dtm.ingenieria%> </td>
+                    <td><%=dtm.administrativo%> </td>
+                    <td><%=dtm.equipo%> </td>
+                    <td></td>
+
+
+                </tr>
+               <% }); %> 
+
+        </tbody>
+      
+        </table>
+
+
+ </div>
+ <% include  .././template/footer.ejs%>

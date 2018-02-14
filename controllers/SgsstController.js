@@ -2,7 +2,13 @@
 var mysql = require('mysql');
 var dateFormat = require('dateformat');
 var emp_id = 0;
+
+
+
+
 module.exports = {
+   
+
     evaluacionIni: function (req, res, next) {
         emp_id = req.params.emp_id;
         var config = require('.././database/config');
@@ -264,37 +270,37 @@ module.exports = {
         db.query('SELECT * FROM empresa WHERE codigo = ? ', emp_id, function (err, rows, fields) {
             if (err) throw err;
             empresa = rows;
-        db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=1  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ', codEvalEmp, function (err, rows, fields) {
-            if (err) throw err;
-
-            categoria1 = rows;
-            db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=2  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ', codEvalEmp, function (err, rows, fields) {
+            db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=1  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ', codEvalEmp, function (err, rows, fields) {
                 if (err) throw err;
 
-                categoria2 = rows;
-
-                db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=3  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ', codEvalEmp, function (err, rows, fields) {
+                categoria1 = rows;
+                db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=2  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ', codEvalEmp, function (err, rows, fields) {
                     if (err) throw err;
 
-                    categoria3 = rows;
-                    db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=4  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ', codEvalEmp, function (err, rows, fields) {
+                    categoria2 = rows;
+
+                    db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=3  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ', codEvalEmp, function (err, rows, fields) {
                         if (err) throw err;
 
-                        categoria4 = rows;
+                        categoria3 = rows;
+                        db.query('SELECT   pe.subcategoria categoria, sum(pe.puntaje) esperado, sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where pe.categoria=4  and pe.codigo=e.codPregunta and e.codEvalEmp= ? group by (pe.subcategoria) ', codEvalEmp, function (err, rows, fields) {
+                            if (err) throw err;
 
-                        res.render('sgsst/estadisticas', {
-                            isAuthenticated: req.isAuthenticated(),
-                            user: user,
-                            categoria1: categoria1,
-                            categoria2: categoria2,
-                            categoria3: categoria3,
-                            categoria4: categoria4,
-                            empresa: empresa
+                            categoria4 = rows;
+
+                            res.render('sgsst/estadisticas', {
+                                isAuthenticated: req.isAuthenticated(),
+                                user: user,
+                                categoria1: categoria1,
+                                categoria2: categoria2,
+                                categoria3: categoria3,
+                                categoria4: categoria4,
+                                empresa: empresa
+                            });
                         });
                     });
                 });
             });
-        });
         });
     },
 
@@ -511,16 +517,85 @@ module.exports = {
         db.query('INSERT INTO matriz_item SET ?', matrizItem, function (err, rows, filds) {
             if (err) throw err;
             var creadaMatrizItem = true;
-            db.query("SELECT MAX(codigo) id FROM  matriz_item WHERE codEmpr = ?", idEmpMatrizItem, function (err, rows, fields) {
+            db.query("SELECT MAX(matriz_item.codigo) id FROM  matriz_item INNER JOIN matriz_empr ON (matriz_empr.codigo=matriz_item.codMatriz) WHERE matriz_empr.codEmpr =  ?", emp_id, function (err, rows, fields) {
                 idEmpMatrizItem = rows[0].id;
-                db.end();
-
-                res.json({ creadaMatrizItem, idEmpMatrizItem });
+                emp_id = emp_id;
+                res.json({ creadaMatrizItem, idEmpMatrizItem, emp_id });
             });
         });
 
 
     },
+
+    guardarMedidasInter: function (req, res, next) {
+        var config = require('.././database/config');
+        var db = mysql.createConnection(config);
+        db.connect();
+
+
+        if (req.body.cIng != undefined) {
+            var ctrlIng = req.body.cIng;
+            ctrlIng = JSON.parse(ctrlIng);
+            console.log(ctrlIng);
+            for (var i = 0; i < ctrlIng.medida.length; i++) {
+                console.log(ctrlIng.medida[i]);
+                var ing = {
+                    codItemMatriz: ctrlIng.codItemMatriz[i],
+                    tipo: ctrlIng.tipo[i],
+                    codMedida: ctrlIng.codMedida[i],
+                    medida: ctrlIng.medida[i],
+                    estado: ctrlIng.estado[i]
+                }
+                db.query('INSERT INTO medidas_item_matriz SET ?', ing, function (err, rows, filds) {
+                    if (err) throw err;
+                });
+            }
+
+
+        }
+        if (req.body.cAdmin != undefined) {
+            var ctrlAdmin = req.body.cAdmin;
+            ctrlAdmin = JSON.parse(ctrlAdmin);
+            console.log(ctrlAdmin);
+            for (var i = 0; i < ctrlAdmin.medida.length; i++) {
+                console.log(ctrlAdmin.medida[i]);
+                var admin = {
+                    codItemMatriz: ctrlAdmin.codItemMatriz[i],
+                    tipo: ctrlAdmin.tipo[i],
+                    codMedida: ctrlAdmin.codMedida[i],
+                    medida: ctrlAdmin.medida[i],
+                    estado: ctrlAdmin.estado[i]
+                }
+                db.query('INSERT INTO medidas_item_matriz SET ?', admin, function (err, rows, filds) {
+                    if (err) throw err;
+                });
+
+            }
+        }
+        if (req.body.cEpp != undefined) {
+            var ctrlEpp = req.body.cEpp;
+            ctrlEpp = JSON.parse(ctrlEpp);
+            console.log(ctrlEpp);
+            for (var i = 0; i < ctrlEpp.medida.length; i++) {
+                console.log(ctrlEpp.medida[i]);
+                var epp = {
+                    codItemMatriz: ctrlEpp.codItemMatriz[i],
+                    tipo: ctrlEpp.tipo[i],
+                    codMedida: ctrlEpp.codMedida[i],
+                    medida: ctrlEpp.medida[i],
+                    estado: ctrlEpp.estado[i]
+                }
+                db.query('INSERT INTO medidas_item_matriz SET ?', epp, function (err, rows, filds) {
+                    if (err) throw err;
+                });
+
+            }
+        }
+
+    
+
+    },
+
 
     detalleEvalIni: function (req, res, next) {
         console.log('ver detalle de evaluacion');
@@ -537,22 +612,54 @@ module.exports = {
             db.query('SELECT eval_empr_resp.codigo, codPregunta, eval_empr.codEmpr empr_id, categoria.nombre categoria, subcategoria.nombre subcategoria, Preg_eval_ini.descripcion descripcion, Preg_eval_ini.puntaje puntajeEsperado, eval_empr_resp.puntaje puntajeObtenido, CASE WHEN eval_empr_resp.estado  = "T" THEN "TOTALMENTE" WHEN eval_empr_resp.estado = "J" THEN "JUSTIFICA" WHEN eval_empr_resp.estado = "NJ" THEN "NO JUSTIFICA" ELSE "NO CUMPLE" END AS estado FROM eval_empr_resp INNER JOIN eval_empr ON (eval_empr_resp.codEvalEmp = eval_empr.codigo) INNER JOIN Preg_eval_ini ON (eval_empr_resp.codPregunta = Preg_eval_ini.codigo ) INNER JOIN categoria ON (categoria.codigo = Preg_eval_ini.categoria) INNER JOIN subcategoria ON (subcategoria.codigo = Preg_eval_ini.subcategoria)  WHERE eval_empr.codigo = ? ', codEvalEmp, function (err, rows, fields) {
                 if (err) throw err;
                 detalles = rows;
-          db.query('SELECT  sum(pe.puntaje) esperado,sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where  pe.codigo=e.codPregunta and e.codEvalEmp=  ? ', codEvalEmp, function (err, rows, fields) {
+                db.query('SELECT  sum(pe.puntaje) esperado,sum(e.puntaje) obtenido FROM Preg_eval_ini pe, eval_empr_resp e where  pe.codigo=e.codPregunta and e.codEvalEmp=  ? ', codEvalEmp, function (err, rows, fields) {
                     if (err) throw err;
-                    totalEval = rows;  
+                    totalEval = rows;
                     console.log(totalEval);
- 
-                res.render('sgsst/detalleEval', {
-                    isAuthenticated: req.isAuthenticated(),
-                    user: user,
-                    empresa: empresa,
-                    detalles: detalles,
-                    totalEval : totalEval
+
+                    res.render('sgsst/detalleEval', {
+                        isAuthenticated: req.isAuthenticated(),
+                        user: user,
+                        empresa: empresa,
+                        detalles: detalles,
+                        totalEval: totalEval
+                    });
                 });
             });
         });
+
+
+    },
+
+
+    detalleMatriz: function (req, res, next) {
+        console.log('ver detalle de la matriz');
+        emp_id = req.params.emp_id;
+
+        
+        var empresa = null;
+        var detalleMatriz = null;
+        user = req.user;
+        console.log(user);
+        var config = require('.././database/config');
+        var db = mysql.createConnection(config);
+        db.connect()
+        db.query('SELECT * FROM empresa WHERE codigo = ? ', emp_id, function (err, rows, fields) {
+            if (err) throw err;
+            empresa = rows;
+        db.query('SELECT matriz_empr.fechaCreacion fechaCreacion,procesos.nombre proceso, matriz_empr.usuario usuario, matriz_item.codMatriz codMatriz, matriz_item.actividad actividad,matriz_item.tarea tarea, matriz_item.zona zona,if(matriz_item.rutinaria="N", "No", "Si") rutinaria, tipo_peligro.nombre tppeligro, peligro.nombre peligro, matriz_item.peorConse peorConse,matriz_item.efectos efectos, matriz_item.fuente fuente, matriz_item.medio medio, matriz_item.individuo individuo, matriz_item.deficiencia deficiencia,matriz_item.exposicion exposicion, matriz_item.probabilidad probabilidad, matriz_item.consecuencia consecuencia, matriz_item.expuestos expuestos,matriz_item.riesgo riesgo, matriz_item.interProba interProba, matriz_item.interRiesgo interRiesgo, matriz_item.aceptable aceptable,if(matriz_item.legal="N", "No", "Si") legal, matriz_item.eliminacion eliminacion, matriz_item.sustitucion sustitucion, IF(ing.mIng IS NULL, "",ing.mIng) ingenieria, IF(admin.mAdmin IS NULL, "",admin.mAdmin) administrativo, IF(epp.mEpp IS NULL, "",epp.mEpp) equipo FROM  matriz_empr INNER JOIN matriz_item ON (matriz_item.codMatriz=matriz_empr.codigo) INNER JOIN procesos ON (procesos.codigo=matriz_item.codProseso ) INNER JOIN tipo_peligro ON (tipo_peligro.codigo=matriz_item.tpPeligro  ) INNER JOIN peligro ON (peligro.codigo=matriz_item.peligro ) LEFT JOIN (SELECT GROUP_CONCAT( "*",medidas.medida SEPARATOR  " " ) mIng,medidas.codItemMatriz codItemMatriz  FROM 	medidas_item_matriz medidas WHERE medidas.tipo=1 GROUP BY medidas.codItemMatriz ) ing ON ( ing.codItemMatriz = matriz_item.codMatriz) LEFT JOIN (SELECT GROUP_CONCAT( "*",medidas.medida SEPARATOR  " " ) mAdmin,medidas.codItemMatriz codItemMatriz  FROM 	medidas_item_matriz medidas WHERE medidas.tipo=2 GROUP BY medidas.codItemMatriz) admin on ( admin.codItemMatriz = matriz_item.codMatriz) LEFT JOIN (SELECT GROUP_CONCAT( "*",medidas.medida SEPARATOR  " " ) mEpp,medidas.codItemMatriz codItemMatriz  FROM 	medidas_item_matriz medidas WHERE medidas.tipo=3 GROUP BY medidas.codItemMatriz) epp on ( epp.codItemMatriz = matriz_item.codMatriz) WHERE matriz_empr.codEmpr= ?', emp_id, function (err, rows, fields) {
+                if (err) throw err;
+                detalleMatriz = rows;
+        res.render('sgsst/detalleMatriz', {
+                isAuthenticated: req.isAuthenticated(),
+                user: user,
+                empresa: empresa,
+                detalleMatriz: detalleMatriz
+              
+            });
         });
 
+        });
 
     },
 

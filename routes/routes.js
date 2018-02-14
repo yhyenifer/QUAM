@@ -43,6 +43,8 @@ router.post('/modificarProceso',AuthMiddleware.isLogged, controllers.SgsstContro
 router.post('/deshabilitarProceso',AuthMiddleware.isLogged, controllers.SgsstController.deshabilitarProceso);
 router.post('/guardarMatriz',AuthMiddleware.isLogged, controllers.SgsstController.guardarMatriz);
 router.post('/guardarMatrizItem',AuthMiddleware.isLogged, controllers.SgsstController.guardarMatrizItem);
+router.post('/guardarMedidasInter',AuthMiddleware.isLogged, controllers.SgsstController.guardarMedidasInter);
+router.get('/detalleMatriz/:emp_id',AuthMiddleware.isLogged, controllers.SgsstController.detalleMatriz);
 
 
 

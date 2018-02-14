@@ -1,13 +1,17 @@
 <% include  .././template/nav.ejs%>
  <h4 class="centro"><b>Evaluación Inicial Detalle de la Empresa:  </b> <%= empresa[0].nombre %></h4><br>
+ 
 
  <div class="container">
         <a class="btn icon-btn btn-primary" href="/evaluacionesIniciales/ <%= empresa[0].codigo %>"><span class="glyphicon btn-glyphicon fa-arrow-left
             fa img-circle text-primary"></span>Volver</a>
+            <a id="imprimir" class="btn icon-btn btn-primary" ><span class="glyphicon btn-glyphicon fa-print
+            fa img-circle text-primary"></span>Imprimir (pendiente)</a>
+           
 
  <div class="row ">
 
-        <table class="table table-striped custab">
+        <table id="detalleEval" class="table table-striped custab">
                 <thead>
               <!--  <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
                     <tr>
@@ -46,4 +50,5 @@
 
 
  </div>
- <!-- <script src="../javascripts/verde.js"></script> -->
+ <% include  .././template/footer.ejs%>
+
