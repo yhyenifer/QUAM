@@ -34,15 +34,15 @@ module.exports = {
                 pregunPlan1 = rows;
                 db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['1', '2'], function (err, rows, fields) {
                     pregunPlan2 = rows;
-                    db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['2', '1'], function (err, rows, fields) {
+                    db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['2', '3'], function (err, rows, fields) {
                         pregunGi1 = rows;
-                        db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['2', '2'], function (err, rows, fields) {
+                        db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['2', '4'], function (err, rows, fields) {
                             pregunGi2 = rows;
-                            db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['2', '3'], function (err, rows, fields) {
+                            db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['2', '5'], function (err, rows, fields) {
                                 pregunGi3 = rows;
-                                db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['3', '1'], function (err, rows, fields) {
+                                db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['3', '6'], function (err, rows, fields) {
                                     pregunVeri = rows;
-                                    db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['4', '1'], function (err, rows, fields) {
+                                    db.query('SELECT * FROM Preg_eval_ini WHERE categoria = ? and subcategoria= ?', ['4', '7'], function (err, rows, fields) {
                                         pregunAct = rows;
                                         db.end();
                                         res.render('sgsst/evaluacionIni', {
@@ -622,8 +622,43 @@ module.exports = {
                         user: user,
                         empresa: empresa,
                         detalles: detalles,
-                        totalEval: totalEval
+                        totalEval: totalEval,
+                        codEval: codEvalEmp
                     });
+                });
+            });
+        });
+
+
+    },
+
+    detalleEvalIniReporte: function (req, res, next) {
+        console.log('ver detalle de evaluacion');
+        var codEvalEmp = req.params.codEvalEmp;
+        var empresa = null;
+        var detalles = null;
+        var totalEval = null;
+        var config = require('.././database/config');
+        var db = mysql.createConnection(config);
+        db.connect();
+        db.query('SELECT * FROM empresa WHERE codigo = ? ', emp_id, function (err, rows, fields) {
+            if (err) throw err;
+            empresa = rows;
+            db.query('SELECT eval_empr.fechaCreacion fechaCreacion, eval_empr_resp.codigo, codPregunta, eval_empr.codEmpr empr_id, categoria.nombre categoria, subcategoria.nombre subcategoria, Preg_eval_ini.descripcion descripcion, Preg_eval_ini.puntaje puntajeEsperado, eval_empr_resp.puntaje puntajeObtenido, CASE WHEN eval_empr_resp.estado  = "T" THEN "TOTALMENTE" WHEN eval_empr_resp.estado = "J" THEN "JUSTIFICA" WHEN eval_empr_resp.estado = "NJ" THEN "NO JUSTIFICA" ELSE "NO CUMPLE" END AS estado FROM eval_empr_resp INNER JOIN eval_empr ON (eval_empr_resp.codEvalEmp = eval_empr.codigo) INNER JOIN Preg_eval_ini ON (eval_empr_resp.codPregunta = Preg_eval_ini.codigo ) INNER JOIN categoria ON (categoria.codigo = Preg_eval_ini.categoria) INNER JOIN subcategoria ON (subcategoria.codigo = Preg_eval_ini.subcategoria)  WHERE eval_empr.codigo = ? ', codEvalEmp, function (err, rows, fields) {
+                if (err) throw err;
+                detalles = rows;
+                db.query('SELECT  sum(pe.puntaje) esperado,sum(e.puntaje) obtenido  FROM Preg_eval_ini pe, eval_empr_resp e where  pe.codigo=e.codPregunta and e.codEvalEmp=  ? ', codEvalEmp, function (err, rows, fields) {
+                    if (err) throw err;
+                    totalEval = rows;
+                    console.log(totalEval);
+
+                    var respuesta = { 
+                        user: user,
+                        empresa: empresa,
+                        detalles: detalles,
+                        totalEval: totalEval
+                    }
+                    res.json(respuesta);
                 });
             });
         });

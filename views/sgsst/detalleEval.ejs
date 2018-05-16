@@ -6,7 +6,10 @@
         <a class="btn icon-btn btn-primary" href="/evaluacionesIniciales/ <%= empresa[0].codigo %>"><span class="glyphicon btn-glyphicon fa-arrow-left
             fa img-circle text-primary"></span>Volver</a>
             <a id="imprimir" class="btn icon-btn btn-primary" ><span class="glyphicon btn-glyphicon fa-print
-            fa img-circle text-primary"></span>Imprimir (pendiente)</a>
+            fa img-circle text-primary"></span>Imprimir</a>
+            <span id="codEval" class="hidden"><%=codEval%></span>
+            <span  class="hidden"><img id="imgEmpr" src="<%=empresa[0].foto %>"></span>
+
            
 
  <div class="row ">
@@ -52,3 +55,4 @@
  </div>
  <% include  .././template/footer.ejs%>
 
+ <script src="../javascripts/reports/detalleEvalReport.js"></script>

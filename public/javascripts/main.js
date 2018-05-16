@@ -118,37 +118,6 @@ $(document).ready(function () {
         $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
     });
 
-    /* prueba reportes */
-    $('#imprimir').on('click', function () {
-        console.log('imprimir ' + url);
-
-        $('.table.table-striped.custab tbody > tr').each(function () {
-            console.log($(this).text());
-        });
-        var docDefinition = {
-            content: [
-                {
-                    layout: 'lightHorizontalLines', // optional
-                    table: {
-
-                        headerRows: 1,
-                        widths: ['*', 'auto', 100, '*'],
-
-                        body: [
-                            ['First', 'Second', 'Third', 'The last one'],
-                            ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-                            [{ text: 'Bold value', bold: true }, 'Val 2', 'Val 3', 'Val 4']
-                        ]
-                    }
-                }
-            ]
-        };
-
-        pdfMake.createPdf(docDefinition).open();
-
-
-    });
-
 
 
 

@@ -46,7 +46,8 @@ router.post('/guardarMatrizItem',AuthMiddleware.isLogged, controllers.SgsstContr
 router.post('/guardarMedidasInter',AuthMiddleware.isLogged, controllers.SgsstController.guardarMedidasInter);
 router.get('/detalleMatriz/:emp_id',AuthMiddleware.isLogged, controllers.SgsstController.detalleMatriz);
 
-
+      // REPORTES
+      router.get('/imprimirEva/:codEvalEmp',AuthMiddleware.isLogged, controllers.SgsstController.detalleEvalIniReporte);
 
 
 module.exports = router;
