@@ -1,6 +1,6 @@
 var suite={
-   // url: 'https://sgquam.herokuapp.com',
-   url: 'http://localhost:3000',
+    url: 'https://sgquam.herokuapp.com',
+   //url: 'http://localhost:3000',
    title: 'QUAM'
     
 };
