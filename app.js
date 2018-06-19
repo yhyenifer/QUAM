@@ -25,11 +25,13 @@ app.use(session({
 app.use(flash());
 
 // view engine setup
- app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, 'views'));
  app.set('view engine', 'ejs');
 	
 
 app.locals=global.suite;
+//static cliente files
+ app.set(express.static(path.join(__dirname, 'dist')));
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -44,8 +46,11 @@ app.use(passport.session());
 
 
 
-
+// routes
 app.use('/', routes);
+
+//static files
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

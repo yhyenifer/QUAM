@@ -38,7 +38,7 @@ module.exports = {
     },
 
     getSignIn : function(req, res, next){
-      return res.render('home.ejs', {message: req.flash('info'), authmessage: ''} );
+      return true;
     },
 
     logout : function(req, res, next){
